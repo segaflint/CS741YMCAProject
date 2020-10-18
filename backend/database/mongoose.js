@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const config = require('../config/database');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://127.0.0.1:27017/ymca_app', { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false })
-    .then(() => console.log("Database Connected"))
-    .catch((error) => console.log(error));
+mongoose.connect(config.database, config.mongooseOptions)
+mongoose.connection.on('connected', () => console.log('Database Connected: ' + config.database));
+mongoose.connection.on('error', (error) => console.log(error));
 
 module.exports = mongoose;

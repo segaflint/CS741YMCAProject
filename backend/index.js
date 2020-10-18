@@ -1,42 +1,30 @@
 const express = require('express');
-const app = express();
+const path = require('path');
 const cors = require('cors');
+const passport = require('passport');
 const mongoose = require('./database/mongoose');
 
-const Program = require('./database/models/program');
+const app = express();
+
+const users = require('./routes/users');
+const programs = require('./routes/programs');
+
+
+const port = 3000;
+
+app.listen(port, () => console.log("Server connected on port " + port));;
+
+// app.get('/', (req, res) => {
+//     res.send('Invalid Endpoint');
+// });
+
 app.use(express.json());
+app.use(express.static(path.join(__dirname, '../frontend')));
 app.use(cors());
-/*
- CORS
- localhost:3000 - backend
- localhost:4200 - frontend
- */
+app.use(passport.initialize());
+app.use(passport.session());
+require('./config/passport')(passport);
 
-app.get('/programs', (req, res) => {
-    Program.find({})
-        .then((programs) => res.send(programs))
-        .catch((error) => console.log(error));
-});
-app.get('/programs/:programId', (req, res) => {
-    Program.find({ _id: req.params.programId })
-        .then((program) => res.send(program))
-        .catch((error) => console.log(error));
-});
-app.post('/programs', (req, res) => {
-    (new Program(req.body))
-        .save()
-        .then((program) => res.send(program))
-        .catch((error) => console.log(error));
-});
-app.patch('/programs/:programId', (req, res) => {
-    Program.findByIdAndUpdate({ '_id': req.params.programId }, { $set: req.body })
-        .then((program) => res.send(program))
-        .catch((error) => console.log(error));
-});
-app.delete('/programs/:programId', (req, res) => {
-    Program.findByIdAndDelete(req.params.programId)
-        .then((program) => res.send(program))
-        .catch((error) => console.log(error));
-});
 
-app.listen(3000, () => console.log("Server connected on port 3000"));;
+app.use('/users/', users);
+app.use('/programs/', programs);
