@@ -13,6 +13,7 @@ import { HomeComponent } from './components/home/home.component';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { JwtModule } from '@auth0/angular-jwt';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,14 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    FlashMessagesModule.forRoot()
+    FlashMessagesModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        authScheme: '',
+        tokenGetter: () => localStorage.getItem('id_token'),
+        allowedDomains: ['localhost:3000','localhost:4200']
+      }
+    })
   ],
   providers: [
     ValidateService,
