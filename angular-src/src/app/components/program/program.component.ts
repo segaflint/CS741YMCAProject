@@ -10,6 +10,7 @@ import { ProgramService } from '../../services/program.service'
 export class ProgramComponent implements OnInit {
   program: Object;
   isNew: boolean = true;
+  mode: string;
 
   constructor(
     private programService: ProgramService,
@@ -21,10 +22,12 @@ export class ProgramComponent implements OnInit {
     if (programId) {
       this.programService.loadProgram(programId).subscribe(program => {
         this.program = (<any>program);
-        this.isNew = false;
       });
+      this.isNew = false;
+      this.mode = "Edit";
     } else {
       this.program = {};
+      this.mode = "Add";
     }
   }
 
