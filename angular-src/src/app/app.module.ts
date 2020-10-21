@@ -14,6 +14,8 @@ import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { JwtModule } from '@auth0/angular-jwt';
+import { ProgramsComponent } from './components/programs/programs.component';
+import { ProgramComponent } from './components/program/program.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { JwtModule } from '@auth0/angular-jwt';
     LoginComponent,
     RegisterComponent,
     ProfileComponent,
-    HomeComponent
+    HomeComponent,
+    ProgramsComponent,
+    ProgramComponent
   ],
   imports: [
     BrowserModule,

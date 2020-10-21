@@ -1,0 +1,24 @@
+<h2 class="page-header">Programs</h2>
+<a *ngIf="user && user.isStaff" class="btn btn-primary" [routerLink]="['/program']">Add Program</a>
+<div *ngIf="programs && user">
+    <ul class="list-group">
+        <li *ngFor="let program of programs" class="list-group-item">
+            <ul class="list-group">
+                <li class="list-group-item">Program: {{program.description}}</li>
+                <li class="list-group-item">Start Date: {{program.startDate}}</li>
+                <li class="list-group-item">End Date: {{program.endDate}}</li>
+                <li class="list-group-item">Day of Week: {{program.dayOfWeek}}</li>
+                <li class="list-group-item">Location: {{program.location}}</li>
+                <li *ngIf="user.isMember" class="list-group-item">Price: ${{program.memberPrice}}</li>
+                <li *ngIf="!user.isMember" class="list-group-item">Price: ${{program.nonMemberPrice}}</li>
+                <li class="list-group-item">Maximum participants: {{program.capacity}}</li>
+                <span *ngFor="let preReq of program.preRequisites">
+                    <li class="list-group-item">Must have passed {{preReq}} level before.</li>
+                </span>
+            </ul>
+            <a *ngIf="user.isStaff" class="btn btn-primary" [routerLink]="['/program', { id: program._id } ]">Edit Program</a>
+        </li>
+    </ul>
+</div>
+<h4 *ngIf="!programs">No Programs in system</h4>
+

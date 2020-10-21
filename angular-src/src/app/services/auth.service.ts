@@ -31,7 +31,6 @@ export class AuthService {
       'Authorization': this.authToken,
       'Content-Type': 'application/json'
     });
-    console.log(headers);
     return this.http.get("http://localhost:3000/users/profile", {headers: headers})
       .pipe(map((res: Response) => res));
   }

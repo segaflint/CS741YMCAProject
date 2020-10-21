@@ -1,24 +1,30 @@
 const mongoose = require('mongoose');
 
 const ProgramSchema = new mongoose.Schema({
-    name: {
+    description: {
         type: String
+    },
+    startDate: {
+        type: Date
+    },
+    endDate: {
+        type: Date
     },
     location: {
         type: String
     },
-    description: {
-        type: String
+    priceMember: {
+        type: Number
     },
-    price_member: {
-        type: String
-    },
-    price_nonmember: {
-        type: String
+    priceNonMember: {
+        type: Number
     },
     capacity: {
+        type: Number
+    },
+    preRequisites: [{
         type: String
-    }
+    }]
 });
 
 const Program = module.exports = mongoose.model('Program', ProgramSchema);
