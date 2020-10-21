@@ -2,39 +2,39 @@
 <form *ngIf="program" (submit)="onEditSubmit()">
     <div class="form-group">
         <label>Description</label>
-        <input type="text" [(ngModel)]="program.description" name="name" class="form-control" >
+        <input type="text" [(ngModel)]="program.description" name="description" class="form-control" >
     </div>
     <div class="form-group">
         <label>Start Date</label>
-        <input type="text" [(ngModel)]="program.startDate" name="name" class="form-control" >
+        <input type="text" [(ngModel)]="program.startDate" name="startDate" class="form-control" >
     </div>
     <div class="form-group">
         <label>End Date</label>
-        <input type="text" [(ngModel)]="program.endDate" name="name" class="form-control" >
+        <input type="text" [(ngModel)]="program.endDate" name="endDate" class="form-control" >
     </div>
     <div class="form-group">
         <label>Day of Week</label>
-        <input type="text" [(ngModel)]="program.dayOfWeek" name="name" class="form-control" >
+        <input type="text" [(ngModel)]="program.dayOfWeek" name="dayOfWeek" class="form-control" >
     </div>
     <div class="form-group">
         <label>Location</label>
-        <input type="text" [(ngModel)]="program.location" name="name" class="form-control" >
+        <input type="text" [(ngModel)]="program.location" name="location" class="form-control" >
     </div>
     <div class="form-group">
         <label>Member Price</label>
-        <input type="number" [(ngModel)]="program.memberPrice" name="name" class="form-control" >
+        <input type="number" [(ngModel)]="program.memberPrice" name="memberPrice" class="form-control" >
     </div>
     <div class="form-group">
         <label>Non-member Price</label>
-        <input type="number" [(ngModel)]="program.nonMemberPrice" name="name" class="form-control" >
+        <input type="number" [(ngModel)]="program.nonMemberPrice" name="nonMemberPrice" class="form-control" >
     </div>
     <div class="form-group">
         <label>Maximum Participants</label>
-        <input type="number" [(ngModel)]="program.capacity" name="name" class="form-control" >
+        <input type="number" [(ngModel)]="program.capacity" name="capacity" class="form-control" >
     </div>
     <div class="form-group">
         <label>Prerequisites</label>
-        <input type="text" [(ngModel)]="program.preRequisites" name="name" class="form-control" >
+        <input type="text" [(ngModel)]="program.preRequisites" name="preRequisites" class="form-control" >
     </div>
     <input type="submit" class="btn btn-primary" value="Submit">
 </form>

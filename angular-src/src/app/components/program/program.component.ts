@@ -8,7 +8,7 @@ import { ProgramService } from '../../services/program.service'
   styleUrls: ['./program.component.less']
 })
 export class ProgramComponent implements OnInit {
-  program: Object;
+  program: any;
   isNew: boolean = true;
   mode: string;
 
