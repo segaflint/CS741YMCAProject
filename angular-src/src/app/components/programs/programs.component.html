@@ -4,10 +4,12 @@
     <ul class="list-group">
         <li *ngFor="let program of programs" class="list-group-item">
             <ul class="list-group">
-                <li class="list-group-item">Program: {{program.description}}</li>
-                <li class="list-group-item">Start Date: {{program.startDate}}</li>
-                <li class="list-group-item">End Date: {{program.endDate}}</li>
+                <h4 class="list-group-item">Program: {{program.description}}</h4>
+                <li class="list-group-item">Start Date: {{program.startDate.substring(0,10)}}</li>
+                <li class="list-group-item">End Date: {{program.endDate.substring(0,10)}}</li>
                 <li class="list-group-item">Day of Week: {{program.dayOfWeek}}</li>
+                <li class="list-group-item">Start Time: {{program.startTime}}</li>
+                <li class="list-group-item">End Time: {{program.endTime}}</li>
                 <li class="list-group-item">Location: {{program.location}}</li>
                 <li *ngIf="user.isMember" class="list-group-item">Price: ${{program.memberPrice}}</li>
                 <li *ngIf="!user.isMember" class="list-group-item">Price: ${{program.nonMemberPrice}}</li>
