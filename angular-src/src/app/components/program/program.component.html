@@ -6,15 +6,23 @@
     </div>
     <div class="form-group">
         <label>Start Date</label>
-        <input type="text" [(ngModel)]="program.startDate" name="startDate" class="form-control" >
+        <input type="date" [(ngModel)]="program.startDate" name="startDate" class="form-control" >
     </div>
     <div class="form-group">
         <label>End Date</label>
-        <input type="text" [(ngModel)]="program.endDate" name="endDate" class="form-control" >
+        <input type="date" [(ngModel)]="program.endDate" name="endDate" class="form-control" >
     </div>
     <div class="form-group">
         <label>Day of Week</label>
         <input type="text" [(ngModel)]="program.dayOfWeek" name="dayOfWeek" class="form-control" >
+    </div>
+    <div class="form-group">
+        <label>Start Time</label>
+        <input type="time" [(ngModel)]="program.startTime" name="startTime" class="form-control" >
+    </div>
+    <div class="form-group">
+        <label>End Time</label>
+        <input type="time" [(ngModel)]="program.endTime" name="endTime" class="form-control" >
     </div>
     <div class="form-group">
         <label>Location</label>
