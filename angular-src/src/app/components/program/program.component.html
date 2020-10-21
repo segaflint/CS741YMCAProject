@@ -14,7 +14,9 @@
     </div>
     <div class="form-group">
         <label>Day of Week</label>
-        <input type="text" [(ngModel)]="program.dayOfWeek" name="dayOfWeek" class="form-control" >
+        <select  [(ngModel)]="program.dayOfWeek" name="dayOfWeek" class="form-control">
+            <option *ngFor="let day of weekdays" value="{{day}}">{{day}}</option>
+        </select>
     </div>
     <div class="form-group">
         <label>Start Time</label>

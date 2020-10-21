@@ -22,10 +22,10 @@ const ProgramSchema = new mongoose.Schema({
     location: {
         type: String
     },
-    priceMember: {
+    memberPrice: {
         type: Number
     },
-    priceNonMember: {
+    nonMemberPrice: {
         type: Number
     },
     capacity: {

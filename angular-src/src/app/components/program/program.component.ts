@@ -11,6 +11,7 @@ export class ProgramComponent implements OnInit {
   program: any;
   isNew: boolean = true;
   mode: string;
+  weekdays: Array<string> = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
   constructor(
     private programService: ProgramService,
