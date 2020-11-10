@@ -7,7 +7,7 @@ export interface Program {
   description: string;
   startDate: string;
   endDate: string;
-  dayOfWeek: string;
+  daysOfWeek: string[];
   startTime: string;
   endTime: string;
   location: string;
@@ -45,6 +45,12 @@ export class ProgramService {
   updateProgram(program) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.patch("http://localhost:3000/programs/" + program._id, program, {headers: headers})
+      .pipe(map((res: Response) => res));
+  }
+
+  deleteProgram(programId) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.delete("http://localhost:3000/programs/" + programId, {headers: headers})
       .pipe(map((res: Response) => res));
   }
 }

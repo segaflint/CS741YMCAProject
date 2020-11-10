@@ -10,9 +10,9 @@ const ProgramSchema = new mongoose.Schema({
     endDate: {
         type: Date
     },
-    dayOfWeek: {
+    daysOfWeek: [{
         type: String
-    },
+    }],
     startTime: {
         type: String
     },

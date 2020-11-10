@@ -2,12 +2,12 @@
 <a *ngIf="user && user.isStaff" class="btn btn-primary" [routerLink]="['/program']">Add Program</a>
 <div *ngIf="programs && user">
     <ul class="list-group">
-        <li *ngFor="let program of programs" class="list-group-item">
+        <li *ngFor="let program of programs; let i = index" class="list-group-item">
             <ul class="list-group">
                 <h4 class="list-group-item">Program: {{program.description}}</h4>
                 <li class="list-group-item">Start Date: {{program.startDate.substring(0,10)}}</li>
                 <li class="list-group-item">End Date: {{program.endDate.substring(0,10)}}</li>
-                <li class="list-group-item">Day of Week: {{program.dayOfWeek}}</li>
+                <li class="list-group-item">Days of Week: {{program.daysOfWeek}}</li>
                 <li class="list-group-item">Start Time: {{program.startTime}}</li>
                 <li class="list-group-item">End Time: {{program.endTime}}</li>
                 <li class="list-group-item">Location: {{program.location}}</li>
@@ -18,7 +18,8 @@
                     <li class="list-group-item">Must have passed {{preReq}} level before.</li>
                 </span>
             </ul>
-            <a *ngIf="user.isStaff" class="btn btn-primary" [routerLink]="['/program', { id: program._id } ]">Edit Program</a>
+            <a *ngIf="user.isStaff" class="btn btn-primary mr-1" [routerLink]="['/program', { id: program._id } ]">Edit Program</a>
+            <a *ngIf="user.isStaff" class="btn btn-primary" (click)="deleteProgram(program._id, i)">Delete Program</a>
         </li>
     </ul>
 </div>

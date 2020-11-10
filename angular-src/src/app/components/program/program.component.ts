@@ -1,6 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 import { Program, ProgramService } from '../../services/program.service'
+
+interface WeekDay {
+  name: string;
+  checked: boolean;
+}
 
 @Component({
   selector: 'app-program',
@@ -11,7 +17,14 @@ export class ProgramComponent implements OnInit {
   program: Program;
   isNew: boolean = true;
   mode: string;
-  weekdays: Array<string> = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  weekdays: WeekDay[] = [
+    { name:"Sunday", checked: false },
+    { name:"Monday", checked: false },
+    { name:"Tuesday", checked: false },
+    { name:"Wednesday", checked: false },
+    { name:"Thursday", checked: false },
+    { name:"Friday", checked: false },
+    { name:"Saturday", checked: false }];
 
   constructor(
     private programService: ProgramService,
@@ -21,8 +34,9 @@ export class ProgramComponent implements OnInit {
   ngOnInit(): void {
     let programId = this.route.snapshot.paramMap.get('id');
     if (programId) {
-      this.programService.loadProgram(programId).subscribe(prog => {
+      this.programService.loadProgram(programId).subscribe((prog: Program) => {
         this.program = prog;
+        this.initWeekdays();
       });
       this.isNew = false;
       this.mode = "Edit";
@@ -33,6 +47,7 @@ export class ProgramComponent implements OnInit {
   }
 
   onEditSubmit() {
+    this.setWeekdays();
     if (this.isNew) {
       this.programService.saveProgram(this.program).subscribe(res => { },
         error => {
@@ -47,5 +62,24 @@ export class ProgramComponent implements OnInit {
         });
     }
     this.router.navigate(['/programs']);
+  }
+
+  private initWeekdays() {
+    for (let day of this.weekdays) {
+      if (this.program.daysOfWeek.includes(day.name)) {
+        day.checked = true;
+      }
+    }
+    console.log(this.weekdays);
+  }
+
+  private setWeekdays() {
+    let newDays: string[] = [];
+    for (let day of this.weekdays) {
+      if (day.checked) {
+        newDays.push(day.name);
+      }
+    }
+    this.program.daysOfWeek = newDays;
   }
 }

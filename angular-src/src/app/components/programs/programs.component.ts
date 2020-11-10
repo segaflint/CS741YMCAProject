@@ -14,8 +14,7 @@ export class ProgramsComponent implements OnInit {
 
   constructor(
     private programService: ProgramService,
-    private authService: AuthService,
-    private router: Router) { }
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe(user => {
@@ -31,6 +30,16 @@ export class ProgramsComponent implements OnInit {
         program.startTime = this.convertMilitaryto12Hr(program.startTime);
         program.endTime = this.convertMilitaryto12Hr(program.endTime);
       });
+    },
+    error => {
+      console.log(error);
+      return false;
+    });
+  }
+
+  deleteProgram(programId: string, index: number) {
+    this.programService.deleteProgram(programId).subscribe(() => {
+      this.programs.splice(index, 1);
     },
     error => {
       console.log(error);
