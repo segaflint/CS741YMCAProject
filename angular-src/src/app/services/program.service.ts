@@ -15,6 +15,7 @@ export interface Program {
   nonMemberPrice: number;
   capacity: number;
   preRequisites: string;
+  registeredUsers: string[];
 }
 
 @Injectable({

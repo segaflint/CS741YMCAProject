@@ -33,6 +33,9 @@ const ProgramSchema = new mongoose.Schema({
     },
     preRequisites: [{
         type: String
+    }],
+    registeredUsers: [{
+        type: mongoose.Schema.Types.ObjectId
     }]
 });
 

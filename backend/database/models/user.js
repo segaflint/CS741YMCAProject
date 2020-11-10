@@ -19,7 +19,10 @@ const UserSchema = new mongoose.Schema({
     },
     isStaff: {
         type: Boolean
-    }
+    },
+    registeredPrograms: [{
+        type: mongoose.Schema.Types.ObjectId
+    }]
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

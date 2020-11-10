@@ -10,6 +10,7 @@ export interface User {
   password: string;
   isMember: boolean;
   isStaff: boolean;
+  registeredPrograms: string[];
 }
 
 @Injectable({
