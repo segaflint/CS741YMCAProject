@@ -2,6 +2,21 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
+export interface Program {
+  _id: string;
+  description: string;
+  startDate: string;
+  endDate: string;
+  dayOfWeek: string;
+  startTime: string;
+  endTime: string;
+  location: string;
+  memberPrice: number;
+  nonMemberPrice: number;
+  capacity: number;
+  preRequisites: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,13 +27,13 @@ export class ProgramService {
   loadPrograms() {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get("http://localhost:3000/programs", {headers})
-      .pipe(map((res: Response) => res));
+      .pipe(map((res: Program[]) => res));
   }
 
   loadProgram(programId) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.get("http://localhost:3000/programs/" + programId, {headers})
-      .pipe(map((res: Response) => res));
+      .pipe(map((res: Program) => res));
   }
 
   saveProgram(program) {

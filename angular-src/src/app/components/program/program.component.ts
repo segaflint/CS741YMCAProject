@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProgramService } from '../../services/program.service'
+import { Program, ProgramService } from '../../services/program.service'
 
 @Component({
   selector: 'app-program',
@@ -8,7 +8,7 @@ import { ProgramService } from '../../services/program.service'
   styleUrls: ['./program.component.less']
 })
 export class ProgramComponent implements OnInit {
-  program: any;
+  program: Program;
   isNew: boolean = true;
   mode: string;
   weekdays: Array<string> = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -21,13 +21,13 @@ export class ProgramComponent implements OnInit {
   ngOnInit(): void {
     let programId = this.route.snapshot.paramMap.get('id');
     if (programId) {
-      this.programService.loadProgram(programId).subscribe(program => {
-        this.program = (<any>program);
+      this.programService.loadProgram(programId).subscribe(prog => {
+        this.program = prog;
       });
       this.isNew = false;
       this.mode = "Edit";
     } else {
-      this.program = {};
+      this.program = {} as Program;
       this.mode = "Add";
     }
   }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProgramService } from '../../services/program.service'
+import { Program, ProgramService } from '../../services/program.service'
 import { AuthService } from '../../services/auth.service'
 import { Router } from '@angular/router'
 
@@ -9,7 +9,7 @@ import { Router } from '@angular/router'
   styleUrls: ['./programs.component.less']
 })
 export class ProgramsComponent implements OnInit {
-  programs: Array<any>;
+  programs: Program[];
   user: any;
 
   constructor(
@@ -18,16 +18,16 @@ export class ProgramsComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.authService.getProfile().subscribe(profile => {
-      this.user = (<any>profile).user;
+    this.authService.getProfile().subscribe(user => {
+      this.user = user;
     },
     error => {
       console.log(error);
       return false;
     });
-    this.programService.loadPrograms().subscribe(programs => {
-      this.programs = (<any>programs);
-      (<any>programs).forEach(program => {
+    this.programService.loadPrograms().subscribe((programs: Program[]) => {
+      this.programs = programs;
+      programs.forEach(program => {
         program.startTime = this.convertMilitaryto12Hr(program.startTime);
         program.endTime = this.convertMilitaryto12Hr(program.endTime);
       });
@@ -39,7 +39,7 @@ export class ProgramsComponent implements OnInit {
   }
   
   private convertMilitaryto12Hr(time: string) {
-    let hr: number= parseInt(time);
+    let hr: number = parseInt(time);
     let min: string = time.substring(2);
     let half: string;
     if (hr > 12) {
