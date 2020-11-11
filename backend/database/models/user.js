@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const config = require('../../config/database');
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -19,10 +18,7 @@ const UserSchema = new mongoose.Schema({
     },
     isStaff: {
         type: Boolean
-    },
-    registeredPrograms: [{
-        type: mongoose.Schema.Types.ObjectId
-    }]
+    }
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);

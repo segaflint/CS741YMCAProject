@@ -4,7 +4,7 @@
     <ul class="list-group">
         <li *ngFor="let program of programs; let i = index" class="list-group-item">
             <ul class="list-group">
-                <h4 class="list-group-item">Program: {{program.description}}</h4>
+                <h4 class="list-group-item">Program: {{program.name}}</h4>
                 <li class="list-group-item">Start Date: {{program.startDate.substring(0,10)}}</li>
                 <li class="list-group-item">End Date: {{program.endDate.substring(0,10)}}</li>
                 <li class="list-group-item">Days of Week: {{program.daysOfWeek}}</li>
@@ -13,7 +13,7 @@
                 <li class="list-group-item">Location: {{program.location}}</li>
                 <li *ngIf="user.isMember" class="list-group-item">Price: ${{program.memberPrice}}</li>
                 <li *ngIf="!user.isMember" class="list-group-item">Price: ${{program.nonMemberPrice}}</li>
-                <li class="list-group-item">Maximum participants: {{program.capacity}}</li>
+                <li class="list-group-item">Enrollment: {{program.numEnrolled}}/{{program.capacity}}</li>
                 <span *ngFor="let preReq of program.preRequisites">
                     <li class="list-group-item">Must have passed {{preReq}} level before.</li>
                 </span>

@@ -1,8 +1,8 @@
 <h2 class="page-header">{{mode}} Program</h2>
 <form *ngIf="program" (submit)="onEditSubmit()">
     <div class="form-group">
-        <label>Description</label>
-        <input type="text" [(ngModel)]="program.description" name="description" class="form-control" >
+        <label>Name</label>
+        <input type="text" [(ngModel)]="program.name" name="name" class="form-control" >
     </div>
     <div class="form-group">
         <label>Start Date</label>

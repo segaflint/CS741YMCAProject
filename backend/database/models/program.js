@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const ProgramSchema = new mongoose.Schema({
-    description: {
+    name: {
         type: String
     },
     startDate: {
@@ -28,14 +28,14 @@ const ProgramSchema = new mongoose.Schema({
     nonMemberPrice: {
         type: Number
     },
+    numEnrolled: {
+        type: Number
+    },
     capacity: {
         type: Number
     },
     preRequisites: [{
         type: String
-    }],
-    registeredUsers: [{
-        type: mongoose.Schema.Types.ObjectId
     }]
 });
 

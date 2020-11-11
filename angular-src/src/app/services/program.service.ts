@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 
 export interface Program {
   _id: string;
-  description: string;
+  name: string;
   startDate: string;
   endDate: string;
   daysOfWeek: string[];
@@ -13,9 +13,9 @@ export interface Program {
   location: string;
   memberPrice: number;
   nonMemberPrice: number;
+  numEnrolled: number;
   capacity: number;
   preRequisites: string;
-  registeredUsers: string[];
 }
 
 @Injectable({
