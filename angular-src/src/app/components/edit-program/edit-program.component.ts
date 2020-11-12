@@ -49,7 +49,6 @@ export class EditProgramComponent implements OnInit {
   onEditSubmit() {
     this.setWeekdays();
     if (this.isNew) {
-      this.program.numEnrolled = 0;
       this.programService.saveProgram(this.program).subscribe(res => { },
         error => {
           console.log(error);

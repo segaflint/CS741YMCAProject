@@ -28,9 +28,6 @@ const ProgramSchema = new mongoose.Schema({
     nonMemberPrice: {
         type: Number
     },
-    numEnrolled: {
-        type: Number
-    },
     capacity: {
         type: Number
     },

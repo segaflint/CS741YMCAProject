@@ -21,7 +21,6 @@ export interface Program {
   location: string;
   memberPrice: number;
   nonMemberPrice: number;
-  numEnrolled: number;
   capacity: number;
   preRequisites: string;
 }
