@@ -8,6 +8,7 @@ const app = express();
 
 const users = require('./routes/users');
 const programs = require('./routes/programs');
+const registrations = require('./routes/registrations');
 
 
 const port = 3000;
@@ -28,3 +29,4 @@ require('./config/passport')(passport);
 
 app.use('/users/', users);
 app.use('/programs/', programs);
+app.use('/registrations/', registrations);

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Program, ProgramService } from '../../services/program.service'
-import { AuthService } from '../../services/auth.service'
-import { Router } from '@angular/router'
+import { User, AuthService } from '../../services/auth.service'
 
 @Component({
   selector: 'app-programs',
@@ -10,7 +9,7 @@ import { Router } from '@angular/router'
 })
 export class ProgramsComponent implements OnInit {
   programs: Program[];
-  user: any;
+  user: User;
 
   constructor(
     private programService: ProgramService,
@@ -26,37 +25,10 @@ export class ProgramsComponent implements OnInit {
     });
     this.programService.loadPrograms().subscribe((programs: Program[]) => {
       this.programs = programs;
-      programs.forEach(program => {
-        program.startTime = this.convertMilitaryto12Hr(program.startTime);
-        program.endTime = this.convertMilitaryto12Hr(program.endTime);
-      });
     },
     error => {
       console.log(error);
       return false;
     });
-  }
-
-  deleteProgram(programId: string, index: number) {
-    this.programService.deleteProgram(programId).subscribe(() => {
-      this.programs.splice(index, 1);
-    },
-    error => {
-      console.log(error);
-      return false;
-    });
-  }
-  
-  private convertMilitaryto12Hr(time: string) {
-    let hr: number = parseInt(time);
-    let min: string = time.substring(2);
-    let half: string;
-    if (hr > 12) {
-      hr -= 12;
-      half = " PM";
-    } else {
-      half = " AM";
-    }
-    return hr + min + half;
   }
 }

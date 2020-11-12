@@ -1,54 +1,27 @@
-<h2 class="page-header">{{mode}} Program</h2>
-<form *ngIf="program" (submit)="onEditSubmit()">
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" [(ngModel)]="program.name" name="name" class="form-control" >
-    </div>
-    <div class="form-group">
-        <label>Start Date</label>
-        <input type="date" [(ngModel)]="program.startDate" name="startDate" class="form-control" >
-    </div>
-    <div class="form-group">
-        <label>End Date</label>
-        <input type="date" [(ngModel)]="program.endDate" name="endDate" class="form-control" >
-    </div>
-    <div class="form-check">
-        <label *ngFor="let day of weekdays" class="form-check-inline" >
-            <input type="checkbox"
-                name="day.checked"
-                [checked]="day.checked"
-                (change)="day.checked = !day.checked"
-                class="form-check-input" />
-            {{day.name}}
-        </label>
-    </div>
-    <div class="form-group">
-        <label>Start Time</label>
-        <input type="time" [(ngModel)]="program.startTime" name="startTime" class="form-control" >
-    </div>
-    <div class="form-group">
-        <label>End Time</label>
-        <input type="time" [(ngModel)]="program.endTime" name="endTime" class="form-control" >
-    </div>
-    <div class="form-group">
-        <label>Location</label>
-        <input type="text" [(ngModel)]="program.location" name="location" class="form-control" >
-    </div>
-    <div class="form-group">
-        <label>Member Price</label>
-        <input type="number" [(ngModel)]="program.memberPrice" name="memberPrice" class="form-control" >
-    </div>
-    <div class="form-group">
-        <label>Non-member Price</label>
-        <input type="number" [(ngModel)]="program.nonMemberPrice" name="nonMemberPrice" class="form-control" >
-    </div>
-    <div class="form-group">
-        <label>Maximum Participants</label>
-        <input type="number" [(ngModel)]="program.capacity" name="capacity" class="form-control" >
-    </div>
-    <div class="form-group">
-        <label>Prerequisites</label>
-        <input type="text" [(ngModel)]="program.preRequisites" name="preRequisites" class="form-control" >
-    </div>
-    <input type="submit" class="btn btn-primary" value="Submit">
-</form>
+<li class="list-group-item">
+    <ul class="list-group mb-1">
+        <h4 class="list-group-flush">Program: {{program.name}}</h4>
+        <li class="list-group-item">Start Date: {{program.startDate.substring(0,10)}}</li>
+        <li class="list-group-item">End Date: {{program.endDate.substring(0,10)}}</li>
+        <li class="list-group-item">Days of Week: {{program.daysOfWeek}}</li>
+        <li class="list-group-item">Start Time: {{program.startTime}}</li>
+        <li class="list-group-item">End Time: {{program.endTime}}</li>
+        <li class="list-group-item">Location: {{program.location}}</li>
+        <li *ngIf="user.isMember" class="list-group-item">Price: ${{program.memberPrice}}</li>
+        <li *ngIf="!user.isMember" class="list-group-item">Price: ${{program.nonMemberPrice}}</li>
+        <li *ngIf="registrations" class="list-group-item">Enrollment: {{registrations.length}}/{{program.capacity}}</li>
+        <li *ngFor="let preReq of program.preRequisites" class="list-group-item">Must have passed {{preReq}} level before.</li>
+        <li class="list-group-item" >
+            Registered Participants by Username:
+            <ul>
+                <li *ngFor="let registration of registrations">{{registration.username}}</li>
+            </ul>
+        </li>
+    </ul>
+    <a class="btn" [ngClass]="(enrollStatus) ? 'btn-danger' : 'btn-success'" (click)="onClickRegister()">
+        {{(enrollStatus) ? "Un-Register" : "Register"}}
+    </a>
+    <a *ngIf="user.isStaff" class="btn btn-primary float-right" [routerLink]="['/edit-program', { id: program._id } ]">
+        Edit Program
+    </a>
+</li>

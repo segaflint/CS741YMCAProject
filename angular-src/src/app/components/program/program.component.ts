@@ -1,12 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
-import { Program, ProgramService } from '../../services/program.service'
+import { Component, Input, OnInit } from '@angular/core';
+import { Registration, Program, ProgramService } from 'src/app/services/program.service';
+import { User, AuthService } from '../../services/auth.service'
+import { Router } from '@angular/router'
 
-interface WeekDay {
-  name: string;
-  checked: boolean;
-}
 
 @Component({
   selector: 'app-program',
@@ -14,72 +10,70 @@ interface WeekDay {
   styleUrls: ['./program.component.less']
 })
 export class ProgramComponent implements OnInit {
-  program: Program;
-  isNew: boolean = true;
-  mode: string;
-  weekdays: WeekDay[] = [
-    { name:"Sunday", checked: false },
-    { name:"Monday", checked: false },
-    { name:"Tuesday", checked: false },
-    { name:"Wednesday", checked: false },
-    { name:"Thursday", checked: false },
-    { name:"Friday", checked: false },
-    { name:"Saturday", checked: false }];
+  @Input('program') program: Program;
+  @Input('user') user: User;
+  registrations: Registration[];
+
+  userRegistration: Registration = undefined;
+  enrollStatus: boolean = false;
 
   constructor(
-    private programService: ProgramService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private programService: ProgramService) { }
 
   ngOnInit(): void {
-    let programId = this.route.snapshot.paramMap.get('id');
-    if (programId) {
-      this.programService.loadProgram(programId).subscribe((prog: Program) => {
-        this.program = prog;
-        this.initWeekdays();
+    this.program.startTime = this.convertMilitaryto12Hr(this.program.startTime);
+    this.program.endTime = this.convertMilitaryto12Hr(this.program.endTime);
+    this.programService.loadRegistrationsByProgram(this.program._id).subscribe((registrations: Registration[]) => {
+      this.registrations = registrations;
+      this.userRegistration = this.registrations.find(registration => registration.userId === this.user._id);
+      this.enrollStatus = !!this.userRegistration;
+    },
+    error => {
+      console.log(error);
+      return false;
+    });
+  }
+
+  onClickRegister() {
+    if (this.userRegistration) {
+      this.programService.deleteRegistration(this.userRegistration._id).subscribe(() => {
+        this.registrations.splice(this.registrations.indexOf(this.userRegistration), 1);
+        this.userRegistration = undefined;
+        this.enrollStatus = false;
+      },
+      error => {
+        console.log(error);
+        return false;
       });
-      this.isNew = false;
-      this.mode = "Edit";
+    } else if (true) {
+      let newRegistration: Registration = {} as Registration;
+      newRegistration.userId = this.user._id;
+      newRegistration.programId = this.program._id;
+      newRegistration.username = this.user.username;
+      newRegistration.programName = this.program.name;
+
+      this.programService.enrollUserInProgram(newRegistration).subscribe((registration: Registration) => {
+        this.registrations.push(registration);
+        this.userRegistration = registration;
+        this.enrollStatus = true;
+      },
+      error => {
+        console.log(error);
+        return false;
+      });
+    }
+  }
+
+  private convertMilitaryto12Hr(time: string) {
+    let hr: number = parseInt(time);
+    let min: string = time.substring(2);
+    let half: string;
+    if (hr > 12) {
+      hr -= 12;
+      half = " PM";
     } else {
-      this.program = {} as Program;
-      this.mode = "Add";
+      half = " AM";
     }
-  }
-
-  onEditSubmit() {
-    this.setWeekdays();
-    if (this.isNew) {
-      this.programService.saveProgram(this.program).subscribe(res => { },
-        error => {
-          console.log(error);
-          return false;
-        });
-    } else {
-      this.programService.updateProgram(this.program).subscribe(res => { },
-        error => {
-          console.log(error);
-          return false;
-        });
-    }
-    this.router.navigate(['/programs']);
-  }
-
-  private initWeekdays() {
-    for (let day of this.weekdays) {
-      if (this.program.daysOfWeek.includes(day.name)) {
-        day.checked = true;
-      }
-    }
-    console.log(this.weekdays);
-  }
-
-  private setWeekdays() {
-    let newDays: string[] = [];
-    for (let day of this.weekdays) {
-      if (day.checked) {
-        newDays.push(day.name);
-      }
-    }
-    this.program.daysOfWeek = newDays;
+    return hr + min + half;
   }
 }

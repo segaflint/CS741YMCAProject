@@ -16,6 +16,7 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { JwtModule } from '@auth0/angular-jwt';
 import { ProgramsComponent } from './components/programs/programs.component';
 import { ProgramComponent } from './components/program/program.component';
+import { EditProgramComponent } from './components/edit-program/edit-program.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ProgramComponent } from './components/program/program.component';
     ProfileComponent,
     HomeComponent,
     ProgramsComponent,
-    ProgramComponent
+    ProgramComponent,
+    EditProgramComponent
   ],
   imports: [
     BrowserModule,
