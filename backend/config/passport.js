@@ -9,7 +9,7 @@ module.exports = function(passport) {
         secretOrKey: dbconfig.secret
     };
     passport.use(new JwtStrategy(opts, (jwt_payload, done) => {
-        console.log(jwt_payload);
+        // console.log(jwt_payload);
         User.getUserById(jwt_payload.user._id, (error, user) => {
             if (error) {
                 return done(error, false);

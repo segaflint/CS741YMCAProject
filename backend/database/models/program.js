@@ -52,45 +52,43 @@ module.exports.getProgramConflicts = function(userId, programId, callback) {
         if (error) {
             callback(error, undefined);
         } else {
-            Registration.find({userId: userId}, (error, registeredProgIds => {
+            Registration.getRegistrationsByUserId(userId, (error, registeredProgIds) => {
                 if (error) {
                     callback(error, undefined);
-                } else {
-                    if (registeredProgIds) {
-                        registeredProgIds = registeredProgIds.map(reg => reg.userId);
-                        Program.find({ "$and": [
-                            { "_id" : { "$in" : registeredProgIds } },
-                            { "$or": [
-                                { "$and": [
-                                    { "startDate": { "$lt": newProg.endDate }},
-                                    { "endDate": { "$gt": newProg.endDate }}
-                                ]},
-                                { "$and": [
-                                    { "startDate": { "$lt": newProg.startDate }},
-                                    { "endDate": { "$gt": newProg.startDate }}
-                                ]}
+                } else if (registeredProgIds) {
+                    registeredProgIds = registeredProgIds.map(reg => reg.userId);
+                    Program.find({ "$and": [
+                        { "_id" : { "$in" : registeredProgIds } },
+                        { "$or": [
+                            { "$and": [
+                                { "startDate": { "$lte": newProg.endDate }},
+                                { "endDate": { "$gte": newProg.endDate }}
                             ]},
-                            { "daysOfWeek": { "$in": newProg.daysOfWeek }}
+                            { "$and": [
+                                { "startDate": { "$lte": newProg.startDate }},
+                                { "endDate": { "$gte": newProg.startDate }}
+                            ]}
                         ]},
-                        (error, possibleConficts) => {
-                            if (error) {
-                                callback(error, undefined);
-                            } else {
-                                let conflicts = possibleConficts
-                                // .filter(possibleConflict => {
-                                //     if (possibleConflict.startTime) {
-    
-                                //     }
-                                // })
-                                ;
-                                callback(undefined, conflicts);
-                            }
-                        });
-                    } else {
-                        callback(undefined, undefined);
-                    }
+                        { "daysOfWeek": { "$in": newProg.daysOfWeek }}
+                    ]},
+                    (error, possibleConficts) => {
+                        if (error) {
+                            callback(error, undefined);
+                        } else {
+                            let conflicts = possibleConficts
+                            // .filter(possibleConflict => {
+                            //     if (possibleConflict.startTime) {
+
+                            //     }
+                            // })
+                            ;
+                            callback(undefined, conflicts);
+                        }
+                    });
+                } else {
+                    callback(undefined, undefined);
                 }
-            }))
+            });
         }
     });
 }

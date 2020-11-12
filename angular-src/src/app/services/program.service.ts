@@ -76,7 +76,7 @@ export class ProgramService {
 
   loadRegistrationsByProgram(programId) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get(`http://localhost:3000/registrations/${programId}`, {headers})
+    return this.http.get(`http://localhost:3000/registrations/program/${programId}`, {headers})
       .pipe(map((res: Registration[]) => res));
   }
 
