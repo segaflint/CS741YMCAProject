@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
 import { Program, ProgramService } from '../../services/program.service'
 
 interface WeekDay {
@@ -48,6 +47,7 @@ export class EditProgramComponent implements OnInit {
 
   onEditSubmit() {
     this.setWeekdays();
+    this.setTimes();
     if (this.isNew) {
       this.programService.saveProgram(this.program).subscribe(res => { },
         error => {
@@ -63,16 +63,7 @@ export class EditProgramComponent implements OnInit {
     }
     this.router.navigate(['/programs']);
   }
-
-  private initWeekdays() {
-    for (let day of this.weekdays) {
-      if (this.program.daysOfWeek.includes(day.name)) {
-        day.checked = true;
-      }
-    }
-    console.log(this.weekdays);
-  }
-
+  
   onDeleteProgram() {
     this.programService.deleteProgram(this.program._id).subscribe(() => {
       this.router.navigate(['/programs']);
@@ -83,6 +74,15 @@ export class EditProgramComponent implements OnInit {
     });
   }
 
+  private initWeekdays() {
+    for (let day of this.weekdays) {
+      if (this.program.daysOfWeek.includes(day.name)) {
+        day.checked = true;
+      }
+    }
+    console.log(this.weekdays);
+  }
+
   private setWeekdays() {
     let newDays: string[] = [];
     for (let day of this.weekdays) {
@@ -91,5 +91,10 @@ export class EditProgramComponent implements OnInit {
       }
     }
     this.program.daysOfWeek = newDays;
+  }
+
+  private setTimes() {
+    this.program.startTime = `1970-01-01T${this.program.startTime}:00.000Z`;
+    this.program.endTime = `1970-01-01T${this.program.endTime}:00.000Z`;
   }
 }

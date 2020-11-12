@@ -1,8 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Registration, Program, ProgramService } from 'src/app/services/program.service';
-import { User, AuthService } from '../../services/auth.service'
-import { ValidateService } from '../../services/validate.service'
-import { Router } from '@angular/router'
+import { User } from '../../services/auth.service';
 
 
 @Component({
@@ -72,7 +70,7 @@ export class ProgramComponent implements OnInit {
             return false;
           });
         } else {
-          this.programErrorMessage(`Program '${this.program.name}' conflicts with your other registration(s)`)
+          this.programErrorMessage(`Program '${this.program.name}' conflicts with at least '${conflicts[0].name}.'`)
         }
       },
       error => {
@@ -91,8 +89,8 @@ export class ProgramComponent implements OnInit {
   }
 
   private convertMilitaryto12Hr(time: string) {
-    let hr: number = parseInt(time);
-    let min: string = time.substring(2);
+    let hr: number = parseInt(time.substring(11,13));
+    let min: string = time.substring(13,16);
     let half: string;
     if (hr > 12) {
       hr -= 12;

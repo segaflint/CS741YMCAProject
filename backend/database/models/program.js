@@ -15,10 +15,10 @@ const ProgramSchema = new mongoose.Schema({
         type: String
     }],
     startTime: {
-        type: String
+        type: Date
     },
     endTime: {
-        type: String
+        type: Date
     },
     location: {
         type: String
@@ -56,8 +56,9 @@ module.exports.getProgramConflicts = function(userId, programId, callback) {
                 if (error) {
                     callback(error, undefined);
                 } else if (registeredProgIds) {
-                    registeredProgIds = registeredProgIds.map(reg => reg.userId);
-                    Program.find({ "$and": [
+                    registeredProgIds = registeredProgIds.map(reg => reg.programId);
+                    Program.find(
+                    { "$and": [
                         { "_id" : { "$in" : registeredProgIds } },
                         { "$or": [
                             { "$and": [
@@ -69,21 +70,20 @@ module.exports.getProgramConflicts = function(userId, programId, callback) {
                                 { "endDate": { "$gte": newProg.startDate }}
                             ]}
                         ]},
-                        { "daysOfWeek": { "$in": newProg.daysOfWeek }}
+                        { "daysOfWeek": { "$in": newProg.daysOfWeek }},
+                        { "$or": [
+                            { "$and": [
+                                { "startTime": { "$lte": newProg.endTime }},
+                                { "endTime": { "$gte": newProg.endTime }}
+                            ]},
+                            { "$and": [
+                                { "startTime": { "$lte": newProg.startTime }},
+                                { "endTime": { "$gte": newProg.startTime }}
+                            ]}
+                        ]}
                     ]},
-                    (error, possibleConficts) => {
-                        if (error) {
-                            callback(error, undefined);
-                        } else {
-                            let conflicts = possibleConficts
-                            // .filter(possibleConflict => {
-                            //     if (possibleConflict.startTime) {
-
-                            //     }
-                            // })
-                            ;
-                            callback(undefined, conflicts);
-                        }
+                    (error, conflicts) => {
+                        callback(error, conflicts);
                     });
                 } else {
                     callback(undefined, undefined);
