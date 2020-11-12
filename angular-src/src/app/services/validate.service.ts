@@ -9,7 +9,7 @@ export class ValidateService {
 
   constructor() { }
 
-  validateRegister(user: User) {
+  validateRegister(user) {
     if (user.name == undefined || user.username == undefined || user.password == undefined) {
       return false;
     }
