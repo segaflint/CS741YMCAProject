@@ -45,3 +45,7 @@ module.exports.createRegistration = function(registration, callback) {
 module.exports.deleteRegistrationById = function(id, callback) {
     Registration.findByIdAndDelete(id, callback);
 }
+
+module.exports.deleteRegistrationsByProgramId = function(programId, callback) {
+    Registration.deleteMany({programId: programId}, callback);
+}

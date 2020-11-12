@@ -102,5 +102,11 @@ module.exports.updateProgramById = function(id, program, callback) {
 }
 
 module.exports.deleteProgramById = function(id, callback) {
-    Program.findByIdAndDelete(id, callback);
+    Registration.deleteRegistrationsByProgramId(id, (error, res) => {
+        if (error) {
+            callback(error, undefined);
+        } else {
+            Program.findByIdAndDelete(id, callback);
+        }
+    });
 }

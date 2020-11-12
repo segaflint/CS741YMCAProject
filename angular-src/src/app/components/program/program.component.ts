@@ -54,7 +54,7 @@ export class ProgramComponent implements OnInit {
       let conflicts: Program[];
       this.programService.loadProgramConflicts(this.user._id, this.program._id).subscribe((confls: Program[]) => {
         conflicts = confls;
-        if (!conflicts) {
+        if (!conflicts || conflicts.length == 0) {
           let newRegistration: Registration = {} as Registration;
           newRegistration.userId = this.user._id;
           newRegistration.programId = this.program._id;
@@ -67,7 +67,7 @@ export class ProgramComponent implements OnInit {
             this.registered = true;
           },
           error => {
-            this.programErrorMessage(`There was a problem creating your registration.`);
+            this.programErrorMessage('There was a problem creating your registration.');
             console.log(error);
             return false;
           });
@@ -76,7 +76,7 @@ export class ProgramComponent implements OnInit {
         }
       },
       error => {
-        this.programErrorMessage(`There was a problem checking for conflicts.`);
+        this.programErrorMessage('There was a problem checking for conflicts.');
         console.log(error);
         return false;
       });
