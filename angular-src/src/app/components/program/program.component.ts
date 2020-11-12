@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Registration, Program, ProgramService } from 'src/app/services/program.service';
 import { User, AuthService } from '../../services/auth.service'
+import { ValidateService } from '../../services/validate.service'
 import { Router } from '@angular/router'
 
 
@@ -15,10 +16,13 @@ export class ProgramComponent implements OnInit {
   registrations: Registration[];
 
   userRegistration: Registration = undefined;
-  enrollStatus: boolean = false;
+  registered: boolean = false;
+
+  errorMsg: string = undefined;
 
   constructor(
-    private programService: ProgramService) { }
+    private programService: ProgramService,
+    private validateService: ValidateService) { }
 
   ngOnInit(): void {
     this.program.startTime = this.convertMilitaryto12Hr(this.program.startTime);
@@ -26,7 +30,7 @@ export class ProgramComponent implements OnInit {
     this.programService.loadRegistrationsByProgram(this.program._id).subscribe((registrations: Registration[]) => {
       this.registrations = registrations;
       this.userRegistration = this.registrations.find(registration => registration.userId === this.user._id);
-      this.enrollStatus = !!this.userRegistration;
+      this.registered = !!this.userRegistration;
     },
     error => {
       console.log(error);
@@ -39,13 +43,15 @@ export class ProgramComponent implements OnInit {
       this.programService.deleteRegistration(this.userRegistration._id).subscribe(() => {
         this.registrations.splice(this.registrations.indexOf(this.userRegistration), 1);
         this.userRegistration = undefined;
-        this.enrollStatus = false;
+        this.registered = false;
       },
       error => {
         console.log(error);
         return false;
       });
-    } else if (true) {
+    } else if (this.program.capacity === this.registrations.length) {
+     this.programErrorMessage(`Program '${this.program.name}' is at capacity`);
+    } else if (this.validateService.validateProgramRegistration(this.user, this.program)) {
       let newRegistration: Registration = {} as Registration;
       newRegistration.userId = this.user._id;
       newRegistration.programId = this.program._id;
@@ -55,13 +61,22 @@ export class ProgramComponent implements OnInit {
       this.programService.enrollUserInProgram(newRegistration).subscribe((registration: Registration) => {
         this.registrations.push(registration);
         this.userRegistration = registration;
-        this.enrollStatus = true;
+        this.registered = true;
       },
       error => {
         console.log(error);
         return false;
       });
+    } else {
+      this.programErrorMessage(`Program '${this.program.name}' conflicts with another registration`)
     }
+  }
+
+  private programErrorMessage(msg: string) {
+    this.errorMsg = msg;
+    setTimeout(() => {
+      this.errorMsg = undefined;
+    }, 2000);
   }
 
   private convertMilitaryto12Hr(time: string) {
