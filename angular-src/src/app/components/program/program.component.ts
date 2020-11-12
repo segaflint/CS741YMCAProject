@@ -13,7 +13,7 @@ import { Router } from '@angular/router'
 export class ProgramComponent implements OnInit {
   @Input('program') program: Program;
   @Input('user') user: User;
-  registrations: Registration[];
+  registrations: Registration[] = [];
 
   userRegistration: Registration = undefined;
   registered: boolean = false;
@@ -21,14 +21,13 @@ export class ProgramComponent implements OnInit {
   errorMsg: string = undefined;
 
   constructor(
-    private programService: ProgramService,
-    private validateService: ValidateService) { }
+    private programService: ProgramService) { }
 
   ngOnInit(): void {
     this.program.startTime = this.convertMilitaryto12Hr(this.program.startTime);
     this.program.endTime = this.convertMilitaryto12Hr(this.program.endTime);
     this.programService.loadRegistrationsByProgram(this.program._id).subscribe((registrations: Registration[]) => {
-      this.registrations = registrations;
+      this.registrations = registrations ? registrations : [];
       this.userRegistration = this.registrations.find(registration => registration.userId === this.user._id);
       this.registered = !!this.userRegistration;
     },
@@ -51,24 +50,36 @@ export class ProgramComponent implements OnInit {
       });
     } else if (this.program.capacity === this.registrations.length) {
      this.programErrorMessage(`Program '${this.program.name}' is at capacity`);
-    } else if (this.validateService.validateProgramRegistration(this.user, this.program)) {
-      let newRegistration: Registration = {} as Registration;
-      newRegistration.userId = this.user._id;
-      newRegistration.programId = this.program._id;
-      newRegistration.username = this.user.username;
-      newRegistration.programName = this.program.name;
-
-      this.programService.enrollUserInProgram(newRegistration).subscribe((registration: Registration) => {
-        this.registrations.push(registration);
-        this.userRegistration = registration;
-        this.registered = true;
+    } else {
+      let conflicts: Program[];
+      this.programService.loadProgramConflicts(this.user._id, this.program._id).subscribe((confls: Program[]) => {
+        conflicts = confls;
+        if (!conflicts) {
+          let newRegistration: Registration = {} as Registration;
+          newRegistration.userId = this.user._id;
+          newRegistration.programId = this.program._id;
+          newRegistration.username = this.user.username;
+          newRegistration.programName = this.program.name;
+    
+          this.programService.enrollUserInProgram(newRegistration).subscribe((registration: Registration) => {
+            this.registrations.push(registration);
+            this.userRegistration = registration;
+            this.registered = true;
+          },
+          error => {
+            this.programErrorMessage(`There was a problem creating your registration.`);
+            console.log(error);
+            return false;
+          });
+        } else {
+          this.programErrorMessage(`Program '${this.program.name}' conflicts with your other registration(s)`)
+        }
       },
       error => {
+        this.programErrorMessage(`There was a problem checking for conflicts.`);
         console.log(error);
         return false;
       });
-    } else {
-      this.programErrorMessage(`Program '${this.program.name}' conflicts with another registration`)
     }
   }
 

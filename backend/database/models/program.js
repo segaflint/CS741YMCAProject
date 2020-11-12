@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Registration = require('./registration');
 
 const ProgramSchema = new mongoose.Schema({
     name: {
@@ -44,6 +45,54 @@ module.exports.getAllPrograms = function(callback) {
 
 module.exports.getProgramById = function(id, callback) {
     Program.findById(id, callback);
+}
+
+module.exports.getProgramConflicts = function(userId, programId, callback) {
+    Program.findById(programId, (error, newProg) => {
+        if (error) {
+            callback(error, undefined);
+        } else {
+            Registration.find({userId: userId}, (error, registeredProgIds => {
+                if (error) {
+                    callback(error, undefined);
+                } else {
+                    if (registeredProgIds) {
+                        registeredProgIds = registeredProgIds.map(reg => reg.userId);
+                        Program.find({ "$and": [
+                            { "_id" : { "$in" : registeredProgIds } },
+                            { "$or": [
+                                { "$and": [
+                                    { "startDate": { "$lt": newProg.endDate }},
+                                    { "endDate": { "$gt": newProg.endDate }}
+                                ]},
+                                { "$and": [
+                                    { "startDate": { "$lt": newProg.startDate }},
+                                    { "endDate": { "$gt": newProg.startDate }}
+                                ]}
+                            ]},
+                            { "daysOfWeek": { "$in": newProg.daysOfWeek }}
+                        ]},
+                        (error, possibleConficts) => {
+                            if (error) {
+                                callback(error, undefined);
+                            } else {
+                                let conflicts = possibleConficts
+                                // .filter(possibleConflict => {
+                                //     if (possibleConflict.startTime) {
+    
+                                //     }
+                                // })
+                                ;
+                                callback(undefined, conflicts);
+                            }
+                        });
+                    } else {
+                        callback(undefined, undefined);
+                    }
+                }
+            }))
+        }
+    });
 }
 
 module.exports.createProgram = function(program, callback) {

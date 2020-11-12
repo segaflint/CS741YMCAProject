@@ -44,6 +44,12 @@ export class ProgramService {
       .pipe(map((res: Program) => res));
   }
 
+  loadProgramConflicts(userId: string, programId: string) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get(`http://localhost:3000/programs/conflicts/${userId}/${programId}`, {headers})
+      .pipe(map((res: Program[]) => res));
+  }
+
   saveProgram(program) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post("http://localhost:3000/programs", program, {headers: headers})
@@ -52,13 +58,13 @@ export class ProgramService {
 
   updateProgram(program) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.patch("http://localhost:3000/programs/" + program._id, program, {headers: headers})
+    return this.http.patch(`http://localhost:3000/programs/${program._id}`, program, {headers: headers})
       .pipe(map((res: Response) => res));
   }
 
   deleteProgram(programId) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.delete("http://localhost:3000/programs/" + programId, {headers: headers})
+    return this.http.delete(`http://localhost:3000/programs/${programId}`, {headers: headers})
       .pipe(map((res: Program) => res));
   }
 
@@ -70,13 +76,13 @@ export class ProgramService {
 
   loadRegistrationsByProgram(programId) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get("http://localhost:3000/registrations/program/" + programId, {headers})
+    return this.http.get(`http://localhost:3000/registrations/${programId}`, {headers})
       .pipe(map((res: Registration[]) => res));
   }
 
   loadRegistrationsByUser(userId) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get("http://localhost:3000/registrations/user/" + userId, {headers})
+    return this.http.get(`http://localhost:3000/registrations/${userId}`, {headers})
       .pipe(map((res: Registration[]) => res));
   }
 
@@ -88,7 +94,7 @@ export class ProgramService {
 
   deleteRegistration(registrationId) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.delete("http://localhost:3000/registrations/" + registrationId, {headers: headers})
+    return this.http.delete(`http://localhost:3000/registrations/${registrationId}`, {headers: headers})
       .pipe(map((res: Registration) => res));
   }
 }

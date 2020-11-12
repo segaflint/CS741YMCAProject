@@ -23,6 +23,16 @@ router.get('/:programId', (req, res) => {
     });
 });
 
+router.get('/conflicts/:userId/:programId', (req, res) => {
+    Program.getProgramConflicts(req.params.userId, req.params.programId, (error, programs) => {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(programs);
+        }
+    });
+});
+
 router.post('/', (req, res) => {
     Program.createProgram(req.body, (error, program) => {
         if (error) {
