@@ -12,13 +12,13 @@
         <li *ngIf="!user.isMember" class="list-group-item">Price: ${{program.nonMemberPrice}}</li>
         <li class="list-group-item">Enrollment: {{registrations.length}}/{{program.capacity}}</li>
         <li *ngFor="let preReq of program.preRequisites" class="list-group-item">Must have passed {{preReq}} level before.</li>
-        <li *ngIf="registrations.length > 0" class="list-group-item" >
+        <li *ngIf="user.isStaff && registrations.length > 0" class="list-group-item" >
             Registered Participants by Username:
             <ul>
                 <li *ngFor="let registration of registrations">{{registration.username}}</li>
             </ul>
         </li>
-        <li *ngIf="registrations.length == 0" class="list-group-item">No participants registered.</li>
+        <li *ngIf="user.isStaff && registrations.length == 0" class="list-group-item">No participants registered.</li>
     </ul>
     <div class="d-flex justify-content-between align-items-center">
         <a class="btn" [ngClass]="registered ? 'btn-danger' : 'btn-success'" (click)="onClickRegister()">

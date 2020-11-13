@@ -11,7 +11,7 @@
             <a *ngIf="!authService.loggedIn()" class="nav-item nav-link" [routerLink]="['/register']">Register</a>
             <a *ngIf="authService.loggedIn()" class="nav-item nav-link" [routerLink]="['/profile']">Profile</a>
             <a *ngIf="authService.loggedIn()" class="nav-item nav-link" [routerLink]="['/programs']">Programs</a>
-            <a *ngIf="authService.loggedIn()" class="nav-item nav-link" (click)="onLogoutClick()">Logout</a>
+            <a *ngIf="authService.loggedIn()" class="nav-item nav-link logout" (click)="onLogoutClick()">Logout</a>
         </div>
 
     </div>
