@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
+import { User, AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';
 
@@ -9,6 +9,7 @@ import { FlashMessagesService } from 'angular2-flash-messages';
   styleUrls: ['./navbar.component.less']
 })
 export class NavbarComponent implements OnInit {
+  user: User;
 
   constructor(
     private flashMessageService: FlashMessagesService,
@@ -16,6 +17,13 @@ export class NavbarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.authService.getProfile().subscribe(user => {
+      this.user = user;
+    },
+    error => {
+      console.log(error);
+      return false;
+    });
   }
 
   onLogoutClick() {

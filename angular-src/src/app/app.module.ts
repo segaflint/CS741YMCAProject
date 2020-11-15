@@ -8,7 +8,7 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
-import { ProfileComponent } from './components/profile/profile.component';
+import { UserComponent } from './components/user/user.component';
 import { HomeComponent } from './components/home/home.component';
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
@@ -17,6 +17,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { ProgramsComponent } from './components/programs/programs.component';
 import { ProgramComponent } from './components/program/program.component';
 import { EditProgramComponent } from './components/edit-program/edit-program.component';
+import { UsersComponent } from './components/users/users.component';
 
 @NgModule({
   declarations: [
@@ -24,11 +25,12 @@ import { EditProgramComponent } from './components/edit-program/edit-program.com
     NavbarComponent,
     LoginComponent,
     RegisterComponent,
-    ProfileComponent,
+    UserComponent,
     HomeComponent,
     ProgramsComponent,
     ProgramComponent,
-    EditProgramComponent
+    EditProgramComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

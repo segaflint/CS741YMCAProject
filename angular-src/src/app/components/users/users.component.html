@@ -1,0 +1,6 @@
+<h2>Users</h2>
+<ul *ngIf="users && curUser" class="list-group">
+    <ul class="list-group">
+        <app-user *ngFor="let user of users" [user]="user" (userDeleted)="onUserDeleted($event)"></app-user>
+    </ul>
+</ul>

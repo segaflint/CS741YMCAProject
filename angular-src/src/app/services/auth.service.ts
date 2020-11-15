@@ -21,6 +21,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  loadUsers() {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get("http://localhost:3000/users", {headers})
+      .pipe(map((res: User[]) => res));
+  }
+
   registerUser(user: Object) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     headers.append('Content-Type', 'application/json');
@@ -41,6 +47,12 @@ export class AuthService {
       'Content-Type': 'application/json'
     });
     return this.http.get("http://localhost:3000/users/profile", {headers: headers})
+      .pipe(map((res: User) => res));
+  }
+
+  deleteUser(userId) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.delete(`http://localhost:3000/users/${userId}`, {headers: headers})
       .pipe(map((res: User) => res));
   }
 

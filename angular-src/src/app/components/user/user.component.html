@@ -1,0 +1,13 @@
+<div *ngIf="user" [ngClass]="isProfile ? undefined : 'list-group-item'">
+    <h2 *ngIf="isProfile" class="page-header">{{user.name}}</h2>
+    <ul class="list-group">
+        <h4 *ngIf="!isProfile" class="list-group-flush d-flex justify-content-between align-items-center">
+            Name: {{user.name}}
+            <a class="btn btn-danger" (click)="onClickDeleteUser()">Delete User</a>
+        </h4>
+        <li class="list-group-item">Username: {{user.username}}</li>
+        <li *ngIf="user.isStaff" class="list-group-item">YMCA Staff member</li>
+        <li *ngIf="user.isMember" class="list-group-item">YMCA member</li>
+        <li *ngIf="!user.isMember" class="list-group-item">Not a YMCA member</li>
+    </ul>
+</div>

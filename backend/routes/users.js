@@ -6,6 +6,16 @@ const dbconfig = require('../config/database');
 
 const User = require('../database/models/user');
 
+router.get('/', (req, res) => {
+    User.getAllUsers((error, users) => {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(users);
+        }
+    });
+});
+
 router.post('/register', (req, res, next) => {
     let newUser = new User({
         name: req.body.name,
@@ -58,6 +68,16 @@ router.post('/authenticate', (req, res, next) => {
 
 router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     res.send(req.user);
+});
+
+router.delete('/:userId', (req, res) => {
+    User.deleteUserById(req.params.userId, (error, user) => {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(user);
+        }
+    });
 });
 
 module.exports = router;
