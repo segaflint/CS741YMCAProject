@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { Program, ProgramService } from '../../services/program.service'
 
 interface WeekDay {
@@ -27,22 +27,25 @@ export class EditProgramComponent implements OnInit {
 
   constructor(
     private programService: ProgramService,
-    private router: Router,
-    private route: ActivatedRoute) { }
+    private router: Router) {
+      let navState: any = this.router.getCurrentNavigation();
+      if (navState) {
+        navState = navState.extras.state;
+      }
+      if (navState) {
+        this.program = navState.program;
+      }
+      if (this.program) {
+        this.initWeekdays();
+        this.isNew = false;
+        this.mode = "Edit";
+      } else {
+        this.program = {} as Program;
+        this.mode = "Add";
+      }
+    }
 
   ngOnInit(): void {
-    let programId = this.route.snapshot.paramMap.get('id');
-    if (programId) {
-      this.programService.loadProgram(programId).subscribe((prog: Program) => {
-        this.program = prog;
-        this.initWeekdays();
-      });
-      this.isNew = false;
-      this.mode = "Edit";
-    } else {
-      this.program = {} as Program;
-      this.mode = "Add";
-    }
   }
 
   onEditSubmit() {
@@ -80,7 +83,6 @@ export class EditProgramComponent implements OnInit {
         day.checked = true;
       }
     }
-    console.log(this.weekdays);
   }
 
   private setWeekdays() {

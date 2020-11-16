@@ -27,7 +27,7 @@
         <div *ngIf="errorMsg" class="alert alert-danger mb-0" role="alert">
             {{errorMsg}}
           </div>
-        <a *ngIf="user.isStaff" class="btn btn-primary float-right" [routerLink]="['/edit-program', { id: program._id } ]">
+        <a *ngIf="user.isStaff" class="btn btn-primary float-right" [routerLink]="['/edit-program']" [state]="{program: program}" >
             Edit Program
         </a>
     </div>
