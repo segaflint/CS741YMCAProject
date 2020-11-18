@@ -13,21 +13,19 @@ export class UserComponent implements OnInit {
 
   @Output('userDeleted') userDeleted: EventEmitter<User> = new EventEmitter();
 
-  constructor(private authService: AuthService,
-              private router: Router) {
-    if (!this.user) { // TODO: how to better null check consecutive optional properties?
-      let navState: any = this.router.getCurrentNavigation();
-      if (navState) {
-        navState = navState.extras.state;
-        if (navState) {
-          this.user = navState.user;
-          this.isProfile = true;
-        }
-      }
-    }
-  }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    if (!this.user) {
+      this.authService.getProfile().subscribe(user => {
+        this.user = user;
+        this.isProfile = true;
+      },
+      error => {
+        console.log(error);
+        return false;
+      });
+    }
   }
 
   onClickDeleteUser() {

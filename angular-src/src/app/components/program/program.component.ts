@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Registration, Program, ProgramService } from 'src/app/services/program.service';
+import { Program, ProgramService } from 'src/app/services/program.service';
+import { Registration, RegistrationService } from 'src/app/services/registration.service';
 import { User } from '../../services/auth.service';
 
 
@@ -19,12 +20,13 @@ export class ProgramComponent implements OnInit {
   errorMsg: string = undefined;
 
   constructor(
-    private programService: ProgramService) { }
+    private programService: ProgramService,
+    private registrationService: RegistrationService) { }
 
   ngOnInit(): void {
     this.program.startTime = this.convertMilitaryto12Hr(this.program.startTime);
     this.program.endTime = this.convertMilitaryto12Hr(this.program.endTime);
-    this.programService.loadRegistrationsByProgram(this.program._id).subscribe((registrations: Registration[]) => {
+    this.registrationService.loadRegistrationsByProgram(this.program._id).subscribe((registrations: Registration[]) => {
       this.registrations = registrations ? registrations : [];
       this.userRegistration = this.registrations.find(registration => registration.userId === this.user._id);
       this.registered = !!this.userRegistration;
@@ -37,7 +39,7 @@ export class ProgramComponent implements OnInit {
 
   onClickRegister() {
     if (this.userRegistration) {
-      this.programService.deleteRegistration(this.userRegistration._id).subscribe(() => {
+      this.registrationService.deleteRegistration(this.userRegistration._id).subscribe(() => {
         this.registrations.splice(this.registrations.indexOf(this.userRegistration), 1);
         this.userRegistration = undefined;
         this.registered = false;
@@ -59,7 +61,7 @@ export class ProgramComponent implements OnInit {
           newRegistration.username = this.user.username;
           newRegistration.programName = this.program.name;
     
-          this.programService.enrollUserInProgram(newRegistration).subscribe((registration: Registration) => {
+          this.registrationService.enrollUserInProgram(newRegistration).subscribe((registration: Registration) => {
             this.registrations.push(registration);
             this.userRegistration = registration;
             this.registered = true;
