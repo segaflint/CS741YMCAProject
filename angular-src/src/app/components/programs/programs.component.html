@@ -1,10 +1,20 @@
 <h2 class="d-flex justify-content-between align-items-center"> Programs
-    <a *ngIf="user && user.isStaff" class="btn btn-primary mt-2" [routerLink]="['/edit-program']">Add Program</a>
+    <div style="display: -webkit-box;">
+        <div class="form-group">
+            <label class="h6">Search </label>
+            <input type="text" placeholder="by program name" [(ngModel)]="query" name="query" class="form-control-sm mr-1" (keydown)="queryKeyDown($event)">
+        </div>
+        <a class="btn btn-primary mt-2 mr-4" (click)="search()">
+            <i class="fa fa-search"></i>
+        </a>
+        <a *ngIf="user && user.isStaff" class="btn btn-primary mt-2" [routerLink]="['/edit-program']">Add Program</a>
+    </div>    
 </h2>
-<div *ngIf="programs && user">
+<div *ngIf="displayPrograms && user">
     <ul class="list-group">
-        <app-program *ngFor="let program of programs" [user]="user" [program]="program"></app-program>
+        <app-program *ngFor="let program of displayPrograms" [user]="user" [program]="program"></app-program>
     </ul>
 </div>
 <h4 *ngIf="!programs || (programs && programs.length == 0)">No Programs in system</h4>
+<h4 *ngIf="!displayPrograms || (displayPrograms && displayPrograms.length == 0)">No Programs matched</h4>
 

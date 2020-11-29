@@ -9,7 +9,9 @@ import { User, AuthService } from '../../services/auth.service'
 })
 export class ProgramsComponent implements OnInit {
   programs: Program[];
+  displayPrograms: Program[];
   user: User;
+  query: string = "";
 
   constructor(
     private programService: ProgramService,
@@ -25,10 +27,27 @@ export class ProgramsComponent implements OnInit {
     });
     this.programService.loadPrograms().subscribe((programs: Program[]) => {
       this.programs = programs;
+      this.displayPrograms = programs;
     },
     error => {
       console.log(error);
       return false;
     });
+  }
+
+  queryKeyDown(event) {
+    if (event.key === "Enter") {
+      this.search();
+    }
+  }
+
+  search() {
+    if (!this.query || this.query === "") {
+      this.displayPrograms = this.programs;
+    } else {
+      this.displayPrograms = this.programs.filter(prog => {
+        return prog.name.toLowerCase().includes(this.query.toLowerCase());
+      });
+    }
   }
 }

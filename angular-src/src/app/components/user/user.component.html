@@ -3,7 +3,7 @@
     <ul class="list-group">
         <h4 *ngIf="!isProfile" class="list-group-flush d-flex justify-content-between align-items-center">
             Name: {{user.name}}
-            <a class="btn btn-danger" (click)="onClickDeleteUser()">Delete User</a>
+            <a *ngIf="user._id !== curUser._id" class="btn btn-danger" (click)="onClickDeleteUser()">Delete User</a>
         </h4>
         <li class="list-group-item">Username: {{user.username}}</li>
         <li *ngIf="user.isStaff" class="list-group-item">YMCA Staff member</li>

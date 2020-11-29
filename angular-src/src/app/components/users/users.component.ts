@@ -9,6 +9,8 @@ import { User, AuthService } from '../../services/auth.service';
 export class UsersComponent implements OnInit {
   curUser: User;
   users: User[];
+  displayUsers: User[];
+  query: string = "";
 
   constructor(private authService: AuthService) { }
 
@@ -22,6 +24,7 @@ export class UsersComponent implements OnInit {
     });
     this.authService.loadUsers().subscribe((users: User[]) => {
       this.users = users;
+      this.displayUsers = users;
     },
     error => {
       console.log(error);
@@ -31,5 +34,22 @@ export class UsersComponent implements OnInit {
 
   onUserDeleted(user: User) {
     this.users.splice(this.users.indexOf(user), 1);
+    this.search();
+  }
+
+  queryKeyDown(event) {
+    if (event.key === "Enter") {
+      this.search();
+    }
+  }
+
+  search() {
+    if (!this.query || this.query === "") {
+      this.displayUsers = this.users;
+    } else {
+      this.displayUsers = this.users.filter(user => {
+        return user.name.toLowerCase().includes(this.query.toLowerCase()) || user.username.toLowerCase().includes(this.query.toLowerCase());
+      });
+    }
   }
 }

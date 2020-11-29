@@ -1,6 +1,17 @@
-<h2>Users</h2>
-<ul *ngIf="users && curUser" class="list-group">
+<h2 class="d-flex justify-content-between align-items-center">Users
+    <div style="display: -webkit-box;">
+        <div class="form-group">
+            <label class="h6">Search </label>
+            <input type="text" placeholder="by username/user name" [(ngModel)]="query" name="query" class="form-control-sm mr-1" (keydown)="queryKeyDown($event)">
+        </div>
+        <a class="btn btn-primary mt-2" (click)="search()">
+            <i class="fa fa-search"></i>
+        </a>
+    </div>
+</h2>
+<ul *ngIf="displayUsers && curUser" class="list-group">
     <ul class="list-group">
-        <app-user *ngFor="let user of users" [user]="user" (userDeleted)="onUserDeleted($event)"></app-user>
+        <app-user *ngFor="let user of displayUsers" [user]="user" (userDeleted)="onUserDeleted($event)"></app-user>
     </ul>
 </ul>
+<h4 *ngIf="!displayUsers || (displayUsers && displayUsers.length == 0)">No Users matched</h4>
