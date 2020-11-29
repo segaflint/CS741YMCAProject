@@ -49,6 +49,12 @@ export class AuthService {
     return this.http.get("http://localhost:3000/users/profile", {headers: headers})
       .pipe(map((res: User) => res));
   }
+  
+  updateUser(user) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.patch(`http://localhost:3000/users/${user._id}`, user, {headers: headers})
+      .pipe(map((res: Response) => res));
+  }
 
   deleteUser(userId) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});

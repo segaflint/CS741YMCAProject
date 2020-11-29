@@ -71,3 +71,7 @@ module.exports.deleteUserById = function(id, callback) {
         }
     });
 }
+
+module.exports.updateUserById = function(id, user, callback) {
+    User.findByIdAndUpdate(id, { $set: user }, callback);
+}

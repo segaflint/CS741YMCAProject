@@ -83,4 +83,14 @@ router.delete('/:userId', (req, res) => {
     });
 });
 
+router.patch('/:userId', (req, res) => {
+    User.updateUserById(req.params.userId, req.body, (error, user) => {
+        if (error) {
+            console.log(error);
+        } else {
+            res.send(user);
+        }
+    });
+});
+
 module.exports = router;

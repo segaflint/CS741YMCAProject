@@ -67,4 +67,12 @@ export class UserComponent implements OnInit {
       return false;
     });
   }
+
+  toggleMembership() {
+    this.authService.updateUser(this.user).subscribe(() => { },
+    error => {
+      console.log(error);
+      return false;
+    });
+  }
 }

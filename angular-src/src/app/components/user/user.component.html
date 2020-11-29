@@ -7,8 +7,12 @@
         </h4>
         <li class="list-group-item">Username: {{user.username}}</li>
         <li *ngIf="user.isStaff" class="list-group-item">YMCA Staff member</li>
-        <li *ngIf="user.isMember" class="list-group-item">YMCA member</li>
-        <li *ngIf="!user.isMember" class="list-group-item">Not a YMCA member</li>
+        <li class="list-group-item">{{user.isMember ? "YMCA member" : "Not a YMCA member"}}
+            <label *ngIf="!isProfile" class="switch float-right">
+                <input type="checkbox" [(ngModel)]="user.isMember" (change)="toggleMembership()">
+                <span class="slider round"></span>
+              </label>
+        </li>
         <li *ngIf="(isProfile || (curUser && curUser.isStaff)) && registrations.length > 0" class="list-group-item py-2" >
             Registered Programs:
             <ul>
