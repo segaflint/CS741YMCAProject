@@ -83,6 +83,20 @@ export class ProgramComponent implements OnInit {
     }
   }
 
+  onclickDeleteRegistration(registration: Registration) {
+    this.registrationService.deleteRegistration(registration._id).subscribe(() => {
+      this.registrations.splice(this.registrations.indexOf(registration), 1);
+      if (registration.username === this.user.username) {
+        this.userRegistration = undefined;
+        this.registered = false;
+      }
+    },
+    error => {
+      console.log(error);
+      return false;
+    });
+  }
+
   private programErrorMessage(msg: string) {
     this.errorMsg = msg;
     setTimeout(() => {

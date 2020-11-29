@@ -15,7 +15,11 @@
         <li *ngIf="user.isStaff && registrations.length > 0" class="list-group-item py-2" >
             Registered Participants by Username:
             <ul>
-                <li *ngFor="let registration of registrations">{{registration.username}}</li>
+                <li *ngFor="let registration of registrations">{{registration.username}}
+                    <a class="btn btn-sm" (click)="onclickDeleteRegistration(registration)">
+                        <i class="fa fa-trash-o" style="color:red"></i>
+                    </a>
+                </li>
             </ul>
         </li>
         <li *ngIf="user.isStaff && registrations.length == 0" class="list-group-item py-2">No participants registered.</li>
