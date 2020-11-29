@@ -11,7 +11,7 @@
             <a *ngIf="!authService.loggedIn()" class="nav-item nav-link" [routerLink]="['/register']">Register</a>
             <a *ngIf="authService.loggedIn()" class="nav-item nav-link" [routerLink]="['/profile']">Profile</a>
             <a *ngIf="authService.loggedIn()" class="nav-item nav-link" [routerLink]="['/programs']">Programs</a>
-            <a *ngIf="authService.loggedIn()" class="nav-item nav-link" [routerLink]="['/users']">Users</a> <!-- TODO: MAKE THIS ONLY SHOW FOR STAFF -->
+            <a *ngIf="authService.loggedIn() && ((authService.user && authService.user.isStaff) || (user && user.isStaff))" class="nav-item nav-link" [routerLink]="['/users']">Users</a> 
             <a *ngIf="authService.loggedIn()" class="nav-item nav-link logout" (click)="onLogoutClick()">Logout</a>
         </div>
 

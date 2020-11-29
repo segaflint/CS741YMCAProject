@@ -41,7 +41,6 @@ export class UserComponent implements OnInit {
   loadRegistrations(user: User) {
     this.registrationService.loadRegistrationsByUser(user._id).subscribe((registrations: Registration[]) => {
       this.registrations = registrations ? registrations : [];
-      console.log(registrations);
     },
     error => {
       console.log(error);
