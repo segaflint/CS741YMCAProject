@@ -52,19 +52,22 @@ export class EditProgramComponent implements OnInit {
     this.setWeekdays();
     this.setTimes();
     if (this.isNew) {
-      this.programService.saveProgram(this.program).subscribe(res => { },
+      this.programService.saveProgram(this.program).subscribe(res => { 
+          this.router.navigate(['/programs']);
+        },
         error => {
           console.log(error);
           return false;
         });
     } else {
-      this.programService.updateProgram(this.program).subscribe(res => { },
+      this.programService.updateProgram(this.program).subscribe(res => { 
+          this.router.navigate(['/programs']);
+        },
         error => {
           console.log(error);
           return false;
         });
     }
-    this.router.navigate(['/programs']);
   }
   
   onDeleteProgram() {

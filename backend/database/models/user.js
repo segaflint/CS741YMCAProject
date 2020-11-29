@@ -19,13 +19,16 @@ const UserSchema = new mongoose.Schema({
     },
     isStaff: {
         type: Boolean
+    },
+    isActive: {
+        type: Boolean
     }
 });
 
 const User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.getAllUsers = function(callback) {
-    User.find({}, callback);
+    User.find({isActive: true}, callback);
 }
 
 module.exports.getUserById = function(id, callback) {
@@ -58,7 +61,7 @@ module.exports.deleteUserById = function(id, callback) {
         if (error) {
             callback(error, undefined);
         } else {
-            User.findByIdAndDelete(id, callback);
+            User.findByIdAndUpdate(id, {isActive: false}, callback);
         }
     });
 }

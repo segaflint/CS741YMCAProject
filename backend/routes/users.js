@@ -22,7 +22,8 @@ router.post('/register', (req, res, next) => {
         username: req.body.username,
         password: req.body.password,
         isMember: false,
-        isStaff: false
+        isStaff: false,
+        isActive: true
     });
     User.addUser(newUser, (error, user) => {
         if (error) {
