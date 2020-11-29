@@ -40,7 +40,7 @@ router.post('/authenticate', (req, res, next) => {
 
     User.getUserByUsername(username, (error, user) => {
         if (error) throw error;
-        if (!user) {
+        if (!user || (user && !user.isActive)) {
             return res.json({success: false, msg: "User not found"});
         }
         User.comparePassword(password, user.password, (error, isMatch) => {

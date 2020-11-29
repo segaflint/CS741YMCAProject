@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
         this.flashMessageService.show("You have successfully logged in!", {cssClass: 'alert-success'});
         this.router.navigate(['/programs']);
       } else {
-        this.flashMessageService.show("Something didn't work", {cssClass: 'alert-danger'});
+        this.flashMessageService.show("User not found", {cssClass: 'alert-danger'});
         this.router.navigate(['/login']);
       }
     });
