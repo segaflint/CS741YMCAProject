@@ -40,12 +40,18 @@ module.exports.getUserByUsername = function(username, callback) {
 }
 
 module.exports.addUser = function(newUser, callback) {
-    bcrypt.genSalt(10, (error, salt) => {
-        bcrypt.hash(newUser.password, salt, (error, hash) => {
-            if (error) throw error;
-            newUser.password = hash;
-            newUser.save(callback);
-        })
+    User.find({username: newUser.username}, (error, matchedUser) => {
+        if (matchedUser) {
+            callback(error, undefined)
+        } else {
+            bcrypt.genSalt(10, (error, salt) => {
+                bcrypt.hash(newUser.password, salt, (error, hash) => {
+                    if (error) throw error;
+                    newUser.password = hash;
+                    newUser.save(callback);
+                })
+            });
+        }
     });
 }
 

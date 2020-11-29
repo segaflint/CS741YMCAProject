@@ -28,8 +28,10 @@ router.post('/register', (req, res, next) => {
     User.addUser(newUser, (error, user) => {
         if (error) {
             res.json({success: false, msg: "User registration failied"});
-        } else {
+        } else if (user) {
             res.json({success: true, msg: "User registered"});
+        } else {
+            res.json({success: false, msg: "User registration failied"});
         }
     });
 });
