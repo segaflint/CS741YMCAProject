@@ -9,5 +9,16 @@
         <li *ngIf="user.isStaff" class="list-group-item">YMCA Staff member</li>
         <li *ngIf="user.isMember" class="list-group-item">YMCA member</li>
         <li *ngIf="!user.isMember" class="list-group-item">Not a YMCA member</li>
+        <li *ngIf="(isProfile || curUser.isStaff) && registrations.length > 0" class="list-group-item py-2" >
+            Registered Programs:
+            <ul>
+                <li *ngFor="let registration of registrations">{{registration.programName}}
+                    <a class="btn btn-sm" title="Remove Registration" (click)="onclickDeleteRegistration(registration)">
+                        <i class="fa fa-trash-o" style="color:red"></i>
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li *ngIf="(isProfile || curUser.isStaff) && registrations.length == 0" class="list-group-item py-2">No programs registered.</li>
     </ul>
 </div>

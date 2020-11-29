@@ -16,7 +16,7 @@
             Registered Participants by Username:
             <ul>
                 <li *ngFor="let registration of registrations">{{registration.username}}
-                    <a class="btn btn-sm" (click)="onclickDeleteRegistration(registration)">
+                    <a class="btn btn-sm" title="Remove Registration" (click)="onclickDeleteRegistration(registration)">
                         <i class="fa fa-trash-o" style="color:red"></i>
                     </a>
                 </li>

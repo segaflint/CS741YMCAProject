@@ -31,7 +31,7 @@ export class RegistrationService {
 
   loadRegistrationsByUser(userId) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
-    return this.http.get(`http://localhost:3000/registrations/${userId}`, {headers})
+    return this.http.get(`http://localhost:3000/registrations/user/${userId}`, {headers})
       .pipe(map((res: Registration[]) => res));
   }
 
