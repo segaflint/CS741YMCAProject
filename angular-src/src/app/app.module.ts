@@ -18,6 +18,7 @@ import { ProgramsComponent } from './components/programs/programs.component';
 import { ProgramComponent } from './components/program/program.component';
 import { EditProgramComponent } from './components/edit-program/edit-program.component';
 import { UsersComponent } from './components/users/users.component';
+import { HelpComponent } from './components/help/help.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { UsersComponent } from './components/users/users.component';
     ProgramsComponent,
     ProgramComponent,
     EditProgramComponent,
-    UsersComponent
+    UsersComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,

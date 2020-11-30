@@ -25,6 +25,10 @@ export class NavbarComponent implements OnInit {
       return false;
     });
   }
+  
+  getFragment() {
+    return this.router.url.includes("/help") ? undefined : this.router.url.substring(1);
+  }
 
   onLogoutClick() {
     this.user = undefined;
