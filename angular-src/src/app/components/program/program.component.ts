@@ -24,8 +24,8 @@ export class ProgramComponent implements OnInit {
     private registrationService: RegistrationService) { }
 
   ngOnInit(): void {
-    this.program.startTime = this.convertMilitaryto12Hr(this.program.startTime);
-    this.program.endTime = this.convertMilitaryto12Hr(this.program.endTime);
+    this.program.startTime = this.programService.convertMilitaryto12Hr(this.program.startTime);
+    this.program.endTime = this.programService.convertMilitaryto12Hr(this.program.endTime);
     this.registrationService.loadRegistrationsByProgram(this.program._id).subscribe((registrations: Registration[]) => {
       this.registrations = registrations ? registrations : [];
       this.userRegistration = this.registrations.find(registration => registration.userId === this.user._id);
@@ -102,18 +102,5 @@ export class ProgramComponent implements OnInit {
     setTimeout(() => {
       this.errorMsg = undefined;
     }, 2000);
-  }
-
-  private convertMilitaryto12Hr(time: string) {
-    let hr: number = parseInt(time.substring(11,13));
-    let min: string = time.substring(13,16);
-    let half: string;
-    if (hr > 12) {
-      hr -= 12;
-      half = " PM";
-    } else {
-      half = " AM";
-    }
-    return hr + min + half;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService, User } from '../../services/auth.service';
 import { Registration, RegistrationService } from 'src/app/services/registration.service';
-import { Router } from '@angular/router';
+import { Program, ProgramService } from 'src/app/services/program.service';
 
 @Component({
   selector: 'app-user',
@@ -13,12 +13,14 @@ export class UserComponent implements OnInit {
   curUser: User;
   isProfile: boolean;
   registrations: Registration[] = [];
+  programs: Program[] = [];
 
   @Output('userDeleted') userDeleted: EventEmitter<User> = new EventEmitter();
 
   constructor(
     private authService: AuthService,
-    private registrationService: RegistrationService) { }
+    private registrationService: RegistrationService,
+    private programService: ProgramService) { }
 
   ngOnInit(): void {
     this.authService.getProfile().subscribe(user => {
@@ -46,6 +48,20 @@ export class UserComponent implements OnInit {
       console.log(error);
       return false;
     });
+    this.programService.loadProgramsByUser(user._id).subscribe((programs: Program[]) => {
+      this.programs = programs ? programs : [];
+    },
+    error => {
+      console.log(error);
+      return false;
+    });
+  }
+
+  getProgramInfo(programId: string) {
+    let program: Program = this.programs.filter(prog => prog._id === programId)[0];
+    if (program)
+      return `- ${this.programService.convertMilitaryto12Hr(program.startTime)} - ${program.daysOfWeek}`;
+    return "";
   }
 
   onclickDeleteRegistration(registration: Registration) {
@@ -65,7 +81,7 @@ export class UserComponent implements OnInit {
     error => {
       console.log(error);
       return false;
-    });
+    }); 
   }
 
   toggleMembership() {

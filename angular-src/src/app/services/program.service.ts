@@ -42,6 +42,12 @@ export class ProgramService {
       .pipe(map((res: Program[]) => res));
   }
 
+  loadProgramsByUser(userId: string) {
+    let headers = new HttpHeaders({'Content-Type': 'application/json'});
+    return this.http.get(`http://localhost:3000/programs/user/${userId}`, {headers})
+      .pipe(map((res: Program[]) => res));
+  }
+
   saveProgram(program) {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.post("http://localhost:3000/programs", program, {headers: headers})
@@ -58,5 +64,18 @@ export class ProgramService {
     let headers = new HttpHeaders({'Content-Type': 'application/json'});
     return this.http.delete(`http://localhost:3000/programs/${programId}`, {headers: headers})
       .pipe(map((res: Program) => res));
+  }
+
+  convertMilitaryto12Hr(time: string) {
+    let hr: number = parseInt(time.substring(11,13));
+    let min: string = time.substring(13,16);
+    let half: string;
+    if (hr > 12) {
+      hr -= 12;
+      half = " PM";
+    } else {
+      half = " AM";
+    }
+    return hr + min + half;
   }
 }

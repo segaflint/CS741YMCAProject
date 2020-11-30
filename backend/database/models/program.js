@@ -93,6 +93,19 @@ module.exports.getProgramConflicts = function(userId, programId, callback) {
     });
 }
 
+module.exports.getProgramsByUserId = function(userId, callback) {
+    Registration.getRegistrationsByUserId(userId, (error, registeredProgIds) => {
+        if (error) {
+            callback(error, undefined);
+        } else if (registeredProgIds) {
+            registeredProgIds = registeredProgIds.map(reg => reg.programId);
+            Program.find({ "_id" : { "$in" : registeredProgIds }}, callback);
+        } else {
+            callback(undefined, undefined);
+        }
+    });
+}
+
 module.exports.createProgram = function(program, callback) {
     (new Program(program)).save(undefined, callback);
 }
