@@ -40,8 +40,8 @@ module.exports.getUserByUsername = function(username, callback) {
 }
 
 module.exports.addUser = function(newUser, callback) {
-    User.find({username: newUser.username}, (error, matchedUser) => {
-        if (matchedUser) {
+    User.find({username: newUser.username}, (error, matchedUsers) => {
+        if (matchedUsers.length > 0) {
             callback(error, undefined)
         } else {
             bcrypt.genSalt(10, (error, salt) => {
