@@ -44,6 +44,7 @@ export class UsersComponent implements OnInit {
   }
 
   search() {
+    this.query = this.query.trim();
     if (!this.query || this.query === "") {
       this.displayUsers = this.users;
     } else {

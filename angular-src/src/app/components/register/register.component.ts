@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, User } from '../../services/auth.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import { Router } from '@angular/router';
 
@@ -25,10 +25,10 @@ export class RegisterComponent implements OnInit {
 
   onRegisterSubmit() {
     const user = {
-      name: this.name,
-      username: this.username,
-      password: this.password
-    };
+      name: this.name.trim(),
+      username: this.username.trim(),
+      password: this.password.trim()
+    } as User;
     if (!this.validateService.validateRegister(user)) {
       this.flashMessageService.show(
         "Please fill in all of the fields",

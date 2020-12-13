@@ -42,6 +42,7 @@ export class ProgramsComponent implements OnInit {
   }
 
   search() {
+    this.query = this.query.trim();
     if (!this.query || this.query === "") {
       this.displayPrograms = this.programs;
     } else {

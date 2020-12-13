@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FlashMessagesService } from 'angular2-flash-messages';
+import { ValidateService } from 'src/app/services/validate.service';
 import { Program, ProgramService } from '../../services/program.service'
 
 interface WeekDay {
@@ -27,6 +29,8 @@ export class EditProgramComponent implements OnInit {
 
   constructor(
     private programService: ProgramService,
+    private validateService: ValidateService,
+    private flashMessageService: FlashMessagesService,
     private router: Router) {
       let navState: any = this.router.getCurrentNavigation();
       if (navState) {
@@ -49,24 +53,29 @@ export class EditProgramComponent implements OnInit {
   }
 
   onEditSubmit() {
+    this.trimTextInputs();
     this.setWeekdays();
     this.setTimes();
-    if (this.isNew) {
-      this.programService.saveProgram(this.program).subscribe(res => { 
-          this.router.navigate(['/programs']);
-        },
-        error => {
-          console.log(error);
-          return false;
-        });
+    if (this.validateService.validateProgram(this.program)) {
+      if (this.isNew) {
+        this.programService.saveProgram(this.program).subscribe(res => {
+            this.router.navigate(['/programs']);
+          },
+          error => {
+            console.log(error);
+            return false;
+          });
+      } else {
+        this.programService.updateProgram(this.program).subscribe(res => {
+            this.router.navigate(['/programs']);
+          },
+          error => {
+            console.log(error);
+            return false;
+          });
+      }
     } else {
-      this.programService.updateProgram(this.program).subscribe(res => { 
-          this.router.navigate(['/programs']);
-        },
-        error => {
-          console.log(error);
-          return false;
-        });
+      this.flashMessageService.show("Please enter a valid program configuration.", {cssClass: 'alert-danger'});
     }
   }
   
@@ -78,6 +87,12 @@ export class EditProgramComponent implements OnInit {
       console.log(error);
       return false;
     });
+  }
+
+  private trimTextInputs() {
+    this.program.name = this.program.name.trim();
+    this.program.location = this.program.location.trim();
+    this.program.preRequisites = this.program.preRequisites.trim();
   }
 
   private initWeekdays() {
