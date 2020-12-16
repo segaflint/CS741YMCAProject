@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: Route definitions for the backend concerning user transactions. This will communicate with the front end user service.
+Code: Route definitions for the backend concerning user transactions. This will be called by the front end user service.
 */
 const express = require('express');
 const router = express.Router();

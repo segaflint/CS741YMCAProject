@@ -1,13 +1,12 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for a single program component being displayed and having options.
+*/
 import { Component, Input, OnInit } from '@angular/core';
 import { Program, ProgramService } from 'src/app/services/program.service';
 import { Registration, RegistrationService } from 'src/app/services/registration.service';
 import { User } from '../../services/auth.service';
 
-
-/*
-Authors: Connor Ludwigson & Seth Rasmusson
-Code: This code is responsible for a single program component being displayed and having options.
-*/
 @Component({
   selector: 'app-program',
   templateUrl: './program.component.html',

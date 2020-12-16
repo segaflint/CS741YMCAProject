@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: Service responsible for communication with back end regarding programs.
+Code: Service responsible for calling API for program database manipulation and access.
 */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

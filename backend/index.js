@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: Index for the backend.
+Code: Init file for the backend. Defines "imports" and routes.
 */
 const express = require('express');
 const path = require('path');
@@ -18,10 +18,6 @@ const registrations = require('./routes/registrations');
 const port = 3000;
 
 app.listen(port, () => console.log("Server connected on port " + port));;
-
-// app.get('/', (req, res) => {
-//     res.send('Invalid Endpoint');
-// });
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, '../frontend')));

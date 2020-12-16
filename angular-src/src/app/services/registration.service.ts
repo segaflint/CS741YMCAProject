@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: Service responsible for user registrations to programs with the backend.
+Code: Service responsible for calling API for user-program registrations database manipulation and access.
 */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

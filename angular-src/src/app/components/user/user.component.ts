@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: This code is responsible for the user view which displays the logged in users information.
+Code: This code is responsible for the user view which displays a user's information.
 */
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AuthService, User } from '../../services/auth.service';

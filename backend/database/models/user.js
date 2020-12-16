@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: user model for database connections and transactions
+Code: user model and manipulation functions for database connections and transactions
 */
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');

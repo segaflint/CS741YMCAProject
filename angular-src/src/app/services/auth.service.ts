@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: service responsible for user validation when logged into the system.
+Code: service responsible for user authentication and calling API for database manipulation and access.
 */
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

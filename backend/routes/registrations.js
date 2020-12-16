@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: Route definitions for the backend concerning registration transactions. This will communicate with the front end registration service.
+Code: Route definitions for the backend concerning registration transactions. This will be called by the front end registration service.
 */
 const express = require('express');
 const router = express.Router();
@@ -56,17 +56,6 @@ router.post('/', (req, res) => {
         }
     });
 });
-
-// TODO: might not be needed
-// router.patch('/:registrationId', (req, res) => {
-//     Registration.updateRegistrationById(req.params.registrationId, req.body, (error, registration) => {
-//         if (error) {
-//             console.log(error);
-//         } else {
-//             res.send(registration);
-//         }
-//     });
-// });
 
 router.delete('/:registrationId', (req, res) => {
     Registration.deleteRegistrationById(req.params.registrationId, (error, registration) => {

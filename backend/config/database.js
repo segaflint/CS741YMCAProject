@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: This code is responsible for the database connection configuration.
+Code: This code is responsible for the database connection configuration and encryption secret.
 */
 module.exports = {
     database: 'mongodb://127.0.0.1:27017/ymca_app',

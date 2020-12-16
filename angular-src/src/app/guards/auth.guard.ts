@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: validation for general accesses to the application.
+Code: route validation for ensuring logged in accesses to parts of the application.
 */
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';

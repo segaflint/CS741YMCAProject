@@ -1,6 +1,6 @@
 /*
 Authors: Connor Ludwigson & Seth Rasmusson
-Code: registration model for database connections and transactions.
+Code: registration model and manipulation functions for database connections and transactions.
 */
 const mongoose = require('mongoose');
 
@@ -40,11 +40,6 @@ module.exports.getRegistrationsByUserId = function(userId, callback) {
 module.exports.createRegistration = function(registration, callback) {
     (new Registration(registration)).save(undefined, callback);
 }
-
-// TODO: might not be needed
-// module.exports.updateRegistrationById = function(id, registration, callback) {
-//     Registration.findByIdAndUpdate(id, { $set: registration }, callback);
-// }
 
 module.exports.deleteRegistrationById = function(id, callback) {
     Registration.findByIdAndDelete(id, callback);
