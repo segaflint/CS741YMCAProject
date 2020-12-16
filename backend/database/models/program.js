@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: Program model for database connections and transactions.
+*/
 const mongoose = require('mongoose');
 const Registration = require('./registration');
 

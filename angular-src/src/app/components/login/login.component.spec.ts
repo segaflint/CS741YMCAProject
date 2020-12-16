@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: test file for login component.
+*/
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginComponent } from './login.component';

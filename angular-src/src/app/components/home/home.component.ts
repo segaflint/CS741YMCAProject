@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for the view for home view.
+*/
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
 

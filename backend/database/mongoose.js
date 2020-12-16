@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for defining mongoose database connection
+*/
 const mongoose = require('mongoose');
 const config = require('../config/database');
 

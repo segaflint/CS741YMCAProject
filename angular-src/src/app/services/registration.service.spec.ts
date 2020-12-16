@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: test file for registration service
+*/
 import { TestBed } from '@angular/core/testing';
 
 import { RegistrationService } from './registration.service';

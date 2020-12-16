@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for the view showing all available programs in a list. It uses the program component.
+*/
 import { Component, OnInit } from '@angular/core';
 import { Program, ProgramService } from '../../services/program.service'
 import { User, AuthService } from '../../services/auth.service'

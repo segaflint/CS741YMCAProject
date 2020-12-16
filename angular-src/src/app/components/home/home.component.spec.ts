@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: test file for home component
+*/
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';

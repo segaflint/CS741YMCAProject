@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for validation of registering users and programs.
+*/
 import { Injectable } from '@angular/core';
 import { User } from './auth.service';
 import { Program } from './program.service';

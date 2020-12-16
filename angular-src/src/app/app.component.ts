@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: App root component
+*/
 import { Component } from '@angular/core';
 
 @Component({

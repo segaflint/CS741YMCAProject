@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for the register view where a new user will make an account.
+*/
 import { Component, OnInit } from '@angular/core';
 import { ValidateService } from '../../services/validate.service';
 import { AuthService, User } from '../../services/auth.service';

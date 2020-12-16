@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for the navigation bar header .
+*/
 import { Component, OnInit } from '@angular/core';
 import { User, AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';

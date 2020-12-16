@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: Test file for the users component.
+*/
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsersComponent } from './users.component';

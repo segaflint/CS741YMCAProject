@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for the help view.
+*/
 import { Component, OnInit } from '@angular/core';
 
 @Component({

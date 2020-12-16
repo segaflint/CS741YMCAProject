@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: registration model for database connections and transactions.
+*/
 const mongoose = require('mongoose');
 
 const RegistrationSchema = new mongoose.Schema({

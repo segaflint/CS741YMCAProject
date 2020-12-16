@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: Test file for the validation service.
+*/
 import { TestBed } from '@angular/core/testing';
 
 import { ValidateService } from './validate.service';

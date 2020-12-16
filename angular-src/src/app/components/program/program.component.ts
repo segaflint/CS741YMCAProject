@@ -4,6 +4,10 @@ import { Registration, RegistrationService } from 'src/app/services/registration
 import { User } from '../../services/auth.service';
 
 
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for a single program component being displayed and having options.
+*/
 @Component({
   selector: 'app-program',
   templateUrl: './program.component.html',

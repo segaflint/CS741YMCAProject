@@ -1,3 +1,8 @@
+
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for the login view.
+*/
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';

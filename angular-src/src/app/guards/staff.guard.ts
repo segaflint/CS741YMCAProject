@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: validation for staff accesses to the application.
+*/
 import { Injectable } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { User } from '../services/auth.service';

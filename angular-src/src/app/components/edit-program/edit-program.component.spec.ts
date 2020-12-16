@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: test file for edit-program
+*/
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditProgramComponent } from './edit-program.component';

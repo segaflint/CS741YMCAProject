@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for the users view available to staff members which shows users who have accounts in the system.
+*/
 import { Component, OnInit } from '@angular/core';
 import { User, AuthService } from '../../services/auth.service';
 

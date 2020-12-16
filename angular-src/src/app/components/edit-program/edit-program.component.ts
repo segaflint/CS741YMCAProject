@@ -1,3 +1,8 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: This code is responsible for the view for the editing of a program.
+*/
+
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FlashMessagesService } from 'angular2-flash-messages';

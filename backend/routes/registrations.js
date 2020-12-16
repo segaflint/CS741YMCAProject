@@ -1,3 +1,7 @@
+/*
+Authors: Connor Ludwigson & Seth Rasmusson
+Code: Route definitions for the backend concerning registration transactions. This will communicate with the front end registration service.
+*/
 const express = require('express');
 const router = express.Router();
 
