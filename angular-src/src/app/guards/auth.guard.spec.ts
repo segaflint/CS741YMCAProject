@@ -1,7 +1,3 @@
-/*
-Authors: Connor Ludwigson & Seth Rasmusson
-Code: test file for auth.guard
-*/
 import { TestBed } from '@angular/core/testing';
 
 import { AuthGuard } from './auth.guard';

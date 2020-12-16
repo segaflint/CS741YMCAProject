@@ -1,7 +1,3 @@
-/*
-Authors: Connor Ludwigson & Seth Rasmusson
-Code: Test file for the register component.
-*/
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterComponent } from './register.component';

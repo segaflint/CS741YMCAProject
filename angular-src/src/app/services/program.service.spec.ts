@@ -1,7 +1,3 @@
-/*
-Authors: Connor Ludwigson & Seth Rasmusson
-Code: Test file for the program service.
-*/
 import { TestBed } from '@angular/core/testing';
 
 import { ProgramService } from './program.service';

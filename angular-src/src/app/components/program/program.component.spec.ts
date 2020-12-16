@@ -1,7 +1,3 @@
-/*
-Authors: Connor Ludwigson & Seth Rasmusson
-Code: Test file for the program component.
-*/
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProgramComponent } from './program.component';
